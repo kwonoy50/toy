@@ -26,16 +26,15 @@ public class DataSourceConfig {
         //--------------------------------------------------------------------------------
         // init script
         //--------------------------------------------------------------------------------
-//        dataSource.setSchema("database/schema.sql");
         String initSchemaFile = "database/schema.sql";
-//        String initDataFile = "database/data.sql";
+        String initDataFile = "database/data.sql";
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
         //----------------------------------------------------------------------------------------------------
         databasePopulator.addScript(new ClassPathResource(initSchemaFile));
         databasePopulator.execute(dataSource);
         //----------------------------------------------------------------------------------------------------
-//        databasePopulator.addScript(new ClassPathResource(initDataFile));
-//        databasePopulator.execute(dataSource);
+        databasePopulator.addScript(new ClassPathResource(initDataFile));
+        databasePopulator.execute(dataSource);
         //----------------------------------------------------------------------------------------------------
         return dataSource;
     }
