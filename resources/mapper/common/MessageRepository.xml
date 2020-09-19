@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common.MessageRepository">
+
+
+<!--<select id="selectMessages" resultType="com.rooine.gardener.common.message.domain.Message">-->
+<select id="selectMessages" resultType="java.util.HashMap">
+<![CDATA[
+SELECT
+        message_code
+       ,message_content
+       ,language_code
+       ,country_code
+  FROM
+        _G_MESSAGE
+ WHERE  1 = 1
+]]>
+</select>
+
+
+<!--<select id="selectMessage" parameterType="com.rooine.gardener.common.message.domain.Message" resultType="com.rooine.gardener.common.message.domain.Message">-->
+<select id="selectMessage" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+<![CDATA[
+SELECT
+        message_code
+       ,message_content
+       ,language_code
+       ,country_code
+  FROM
+        _G_MESSAGE
+ WHERE  1 = 1
+   AND  message_code = #{messageCode}
+   AND  language_code = #{languageCode}
+   AND  country_code = #{countryCode}
+]]>
+</select>
+
+</mapper>
