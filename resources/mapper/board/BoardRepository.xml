@@ -5,13 +5,14 @@
 
 
 <!--<select id="selectMessages" resultType="com.rooine.gardener.common.message.domain.Message">-->
-<select id="selectBoards" resultType="java.util.HashMap">
+<select id="selectList" resultType="java.util.HashMap">
 <![CDATA[
 SELECT
         bno
        ,title
        ,content
        ,writer
+       ,regdate
   FROM
         _G_BOARD
  WHERE  1 = 1
@@ -20,20 +21,18 @@ SELECT
 
 
 <!--<select id="selectMessage" parameterType="com.rooine.gardener.common.message.domain.Message" resultType="com.rooine.gardener.common.message.domain.Message">-->
-<select id="selectBoard" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+<select id="selectDetail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 <![CDATA[
 SELECT
         bno
        ,title
        ,content
        ,writer
+       ,regdate
   FROM
         _G_BOARD
  WHERE  1 = 1
    AND  bno = #{bno}
-   AND  title = #{title}
-   AND  content = #{content}
-   AND  writer = #{writer}
 ]]>
 </select>
 

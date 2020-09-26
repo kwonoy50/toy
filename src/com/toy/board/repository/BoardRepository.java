@@ -15,12 +15,18 @@ public class BoardRepository {
 	private SqlSessionMapper mapper;
 	
 	public List<Map> selectBoardList(){
-		List<Map> boardList = mapper.selectList("board.BoardRepository.selectBoards");
+		List<Map> boardList = mapper.selectList("board.BoardRepository.selectList");
 		return boardList;
 	}
 	
 	public List<Map> selectUserList(){
 		List<Map> userList = mapper.selectList("user.UserRepository.selectUsers");
 		return userList;
+	}
+
+	public List<Map> selectBoardDetail(String bno) {
+		System.out.println("@RequestParam2 : " + bno);
+		List<Map> boardDetail = mapper.select("board.BoardRepository.selectDetail");
+		return boardDetail;
 	}
 }
