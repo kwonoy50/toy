@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
         useDefaultFilters = false,
         basePackages   = "com.toy",
         includeFilters = {
-                @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "*..common.config.context.*"),
+                @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "*..config.context.*"),
                 @ComponentScan.Filter({ Service.class, Repository.class, Component.class }),
         })
 public class AppConfig {
