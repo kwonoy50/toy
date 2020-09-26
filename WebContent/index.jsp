@@ -5,13 +5,15 @@
 
 
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script type="text/javascript">
+        location.href = '${pageContext.request.contextPath}/list';
+    </script>
 </head>
 
 
 <body>
-index test
 </body>
 
 </html>
