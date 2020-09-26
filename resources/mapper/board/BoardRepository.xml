@@ -4,35 +4,33 @@
 <mapper namespace="board.BoardRepository">
 
 
-<!--<select id="selectMessages" resultType="com.rooine.gardener.common.message.domain.Message">-->
 <select id="selectList" resultType="java.util.HashMap">
 <![CDATA[
-SELECT
-        bno
-       ,title
-       ,content
-       ,writer
-       ,regdate
+SELECT        
+        BOARD_NO
+       ,BOARD_TITLE
+       ,BOARD_CONTENT
+       ,BOARD_USER_ID
+       ,BOARD_REGDATE
   FROM
-        _G_BOARD
+        BOARD
  WHERE  1 = 1
 ]]>
 </select>
 
 
-<!--<select id="selectMessage" parameterType="com.rooine.gardener.common.message.domain.Message" resultType="com.rooine.gardener.common.message.domain.Message">-->
 <select id="selectDetail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 <![CDATA[
 SELECT
-        bno
-       ,title
-       ,content
-       ,writer
-       ,regdate
+        BOARD_NO
+       ,BOARD_TITLE
+       ,BOARD_CONTENT
+       ,BOARD_USER_ID
+       ,BOARD_REGDATE
   FROM
-        _G_BOARD
+        BOARD
  WHERE  1 = 1
-   AND  bno = #{bno}
+   AND  BOARD_NO = #{BOARD_NO}
 ]]>
 </select>
 

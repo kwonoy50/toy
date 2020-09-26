@@ -26,22 +26,20 @@
     <tbody>
         <tr>
             <th>제목</th>
-            <td colspan="3">${boardDetail.TITLE}</td>
+            <td colspan="3">${boardDetail.BOARD_TITLE}</td>
         </tr>
         <tr>
             <th>작성자</th>
-            <td>${boardDetail.WRITER}</td>
-            <th>작성일</th>
-            <fmt:parseDate value="${boardDetail.REGDATE}" var="dateFmt" pattern="yyyyMMdd"/>				
-			<td><fmt:formatDate value="${dateFmt}" pattern="yyyy.MM.dd"/></td>			
+            <td>${boardDetail.BOARD_USER_ID}</td>
+            <th>작성일</th>	
+			<td><fmt:formatDate value="${boardDetail.BOARD_REGDATE}" pattern="yyyy.MM.dd"/></td>			
         </tr>
         <tr>
             <th>내용</th>
-            <td colspan="3">${boardDetail.CONTENTS}</td>
+            <td colspan="3">${boardDetail.BOARD_CONTENT}</td>
         </tr>
     </tbody>
 </table>
-<pre>${boardDetail}</pre>
 
 
 

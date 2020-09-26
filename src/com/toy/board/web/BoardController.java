@@ -22,27 +22,24 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	@RequestMapping("/list")
+	@RequestMapping("/board/list")
 	public ModelAndView list(@RequestParam Map<String, String> param) {		
 		ModelAndView mav = new ModelAndView("board/list");
 
 		mav.addObject("boardList", boardService.getBoardList());
-		mav.addObject("userList", boardService.getUserList());
 		
 		return mav;
 	}
 	
-	@RequestMapping("/detail")
-	public String detail(@RequestParam String bno, ModelMap model) {
+	@RequestMapping("/board/detail")
+	public ModelAndView detail(@RequestParam Map param) {	
+		ModelAndView mav = new ModelAndView("board/detail");
 		
-		System.out.println("@RequestParam : " + bno);
+		Map detail = boardService.getBoardDetail(param);
 		
-		List<Map> detail = boardService.getBoardDetail(bno);
-		System.out.println("detail : " + detail);
+		mav.addObject("boardDetail", detail);
 		
-		model.addAttribute("boardDetail", detail);
-		
-		return "board/detail";
+		return mav;
 	}
 	
 }

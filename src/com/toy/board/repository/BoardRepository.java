@@ -3,6 +3,8 @@ package com.toy.board.repository;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,22 +13,24 @@ import com.toy.common.mapper.SqlSessionMapper;
 @Repository
 public class BoardRepository {
 
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+
 	@Autowired
 	private SqlSessionMapper mapper;
-	
-	public List<Map> selectBoardList(){
+
+
+	public List<Map> selectBoardList() {
 		List<Map> boardList = mapper.selectList("board.BoardRepository.selectList");
+		logger.debug("boardList : {}", boardList);
 		return boardList;
 	}
-	
-	public List<Map> selectUserList(){
-		List<Map> userList = mapper.selectList("user.UserRepository.selectUsers");
-		return userList;
-	}
 
-	public List<Map> selectBoardDetail(String bno) {
-		System.out.println("@RequestParam2 : " + bno);
-		List<Map> boardDetail = mapper.select("board.BoardRepository.selectDetail");
+
+	public Map selectBoardDetail(Map param) {
+		logger.debug("param: {}", param);
+		logger.debug("param.BOARD_NO: {}", param.get("BOARD_NO"));
+		
+		Map boardDetail = mapper.select("board.BoardRepository.selectDetail", param);
 		return boardDetail;
 	}
 }
