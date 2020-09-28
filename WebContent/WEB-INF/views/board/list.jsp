@@ -14,11 +14,33 @@
 </head>
 
 <body>
-<script type="text/javascript">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#button2').click(function(){
+		$(location).attr('href','write');
+	});
+});
+
+$(function() {
+	$('#button3').click(function(){
+		location.href = "write";	
+	});
+});
+
+	/* $('#fn_detail').click(function(){
+		alert("11111");
+		location.href = "/board/detail?BOARD_NO=${row.BOARD_NO}"		
+	}); */
 </script>
 <h2>게시글 목록</h2>
-<form>
+<div>
+<button type="button" onclick="location.href='write'">글쓰기</button>
+<button type="button" id="button2">글쓰기2</button>
+<button type="button" id="button3">글쓰기3</button>
+</div>
+<form id="frm" action="boardList" method="post">
 	<table border="1" width="600">
 		<thead>
 			<tr>
@@ -35,6 +57,7 @@
 			<c:forEach var="row" items="${boardList}" varStatus="status">
 				<tr>
 					<td>${row.BOARD_NO}</td>
+					<%-- <td><a href="#" onclick="fn_detail(<c:out value="${row.BOARD_NO}"/>)">${row.BOARD_TITLE}</a></td> --%>
 					<td><a href="<c:url value='/board/detail?BOARD_NO=${row.BOARD_NO}'/>">${row.BOARD_TITLE}</a></td>
 					<td>${row.BOARD_USER_ID}</td>
 					<td><fmt:formatDate value="${row.BOARD_REGDATE}" pattern="yyyy.MM.dd"/></td>

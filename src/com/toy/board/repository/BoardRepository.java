@@ -33,4 +33,12 @@ public class BoardRepository {
 		Map boardDetail = mapper.select("board.BoardRepository.selectDetail", param);
 		return boardDetail;
 	}
+	
+	public int insertBoard(Map param) {
+		logger.debug("11111111param {}", param);
+		logger.debug("param.BOARD_TITLE: {}", param.get("BOARD_TITLE"));
+		
+		int boardInsert = mapper.insert("board.BoardRepository.insertBoard", param);
+		return boardInsert;
+	}
 }

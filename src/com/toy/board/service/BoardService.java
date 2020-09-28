@@ -30,4 +30,10 @@ public class BoardService {
 		logger.debug("param {}", param);
 		return boardRepository.selectBoardDetail(param);
 	}
+	
+	
+	public int setInsertBoard(Map param) {
+		logger.debug("2222222param {}", param);
+		return boardRepository.insertBoard(param);
+	}
 }

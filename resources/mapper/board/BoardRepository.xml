@@ -34,4 +34,22 @@ SELECT
 ]]>
 </select>
 
+
+<insert id="insertBoard" parameterType="java.util.HashMap">
+<![CDATA[
+INSERT INTO BOARD (
+		BOARD_NO
+       ,BOARD_TITLE
+       ,BOARD_CONTENT
+       ,BOARD_USER_ID
+       ,BOARD_REGDATE
+        ) VALUES (
+        (SELECT MAX(BOARD_NO)+1 FROM BOARD)
+       ,#{BOARD_TITLE}
+       ,#{BOARD_CONTENT}
+       ,#{BOARD_USER_ID}
+       ,SYSDATE
+        )
+]]>
+</insert>
 </mapper>

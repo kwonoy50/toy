@@ -15,7 +15,7 @@
 <script type="text/javascript">
 
 </script>
-<h2>게시글 상세보기</h2>
+<h2>게시글 상세</h2>
 <table border="1" width="600">
     <colgroup>
         <col width="15%">

@@ -1,16 +1,12 @@
 package com.toy.board.web;
 
-import java.util.List;
 import java.util.Map;
 
-import javax.activation.CommandMap;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,6 +17,8 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@RequestMapping("/board/list")
 	public ModelAndView list(@RequestParam Map<String, String> param) {		
@@ -42,4 +40,21 @@ public class BoardController {
 		return mav;
 	}
 	
+	@RequestMapping("/board/write")
+	public String write() {
+		
+		return "/board/write";
+	}
+	
+	@RequestMapping("/board/insert")
+	public ModelAndView insert(@RequestParam Map param) {
+		ModelAndView mav = new ModelAndView();
+		logger.debug("333333333param {}", param);
+		logger.debug("param.BOARD_TITLE: {}", param.get("BOARD_TITLE"));
+		
+		mav.addObject("boardInsert", boardService.setInsertBoard(param));	
+		mav.setViewName("board/list");
+		
+		return mav;
+	}
 }
