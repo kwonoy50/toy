@@ -2,7 +2,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -11,6 +10,10 @@
 <head>
     <meta charset="UTF-8">
     <title>목록</title>
+<style type="text/css">
+a:hover   { cursor:pointer; text-decoration:underline; color:#FF0000 }
+a.no-uline:hover   { text-decoration:underline }
+</style>
 </head>
 
 <body>
@@ -25,22 +28,30 @@ $(document).ready(function() {
 
 $(function() {
 	$('#button3').click(function(){
-		location.href = "write";	
+		location.href = "goWrite";	
 	});
 });
 
-	/* $('#fn_detail').click(function(){
+$(function() {
+	$('#BOARD_TITLE').click(function(){
 		alert("11111");
-		location.href = "/board/detail?BOARD_NO=${row.BOARD_NO}"		
-	}); */
+		//location.href = "/board/detail?BOARD_NO=${row.BOARD_NO}"		
+	});
+});
+
+function goDetail() {
+	$("#frm").attr("action", "/board/detail");
+	$('#frm').submit();
+}
+
 </script>
 <h2>게시글 목록</h2>
 <div>
-<button type="button" onclick="location.href='write'">글쓰기</button>
+<button type="button" onclick="location.href='goWrite'">글쓰기</button>
 <button type="button" id="button2">글쓰기2</button>
 <button type="button" id="button3">글쓰기3</button>
 </div>
-<form id="frm" action="boardList" method="post">
+<form id="frm" method="post">
 	<table border="1" width="600">
 		<thead>
 			<tr>
@@ -56,9 +67,10 @@ $(function() {
 			</c:if>
 			<c:forEach var="row" items="${boardList}" varStatus="status">
 				<tr>
-					<td>${row.BOARD_NO}</td>
-					<%-- <td><a href="#" onclick="fn_detail(<c:out value="${row.BOARD_NO}"/>)">${row.BOARD_TITLE}</a></td> --%>
-					<td><a href="<c:url value='/board/detail?BOARD_NO=${row.BOARD_NO}'/>">${row.BOARD_TITLE}</a></td>
+					<td><input type="hidden" name="BOARD_NO" value="${row.BOARD_NO}">${row.BOARD_NO}</td>					
+					<td><a onclick="goDetail()">${row.BOARD_TITLE}</a></td>
+					<%-- <td><a href="#" id="BOARD_TITLE")">${row.BOARD_TITLE}</a></td> --%>
+					<%-- <td><a href="<c:url value='/board/detail?BOARD_NO=${row.BOARD_NO}'/>">${row.BOARD_TITLE}</a></td> --%>
 					<td>${row.BOARD_USER_ID}</td>
 					<td><fmt:formatDate value="${row.BOARD_REGDATE}" pattern="yyyy.MM.dd"/></td>
 				</tr>

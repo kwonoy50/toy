@@ -44,7 +44,7 @@ INSERT INTO BOARD (
        ,BOARD_USER_ID
        ,BOARD_REGDATE
         ) VALUES (
-        (SELECT MAX(BOARD_NO)+1 FROM BOARD)
+        (SELECT NVL(MAX(BOARD_NO), 0)+1 FROM BOARD)
        ,#{BOARD_TITLE}
        ,#{BOARD_CONTENT}
        ,#{BOARD_USER_ID}
@@ -52,4 +52,26 @@ INSERT INTO BOARD (
         )
 ]]>
 </insert>
+
+<delete id="deleteBoard" parameterType="java.util.HashMap">
+<![CDATA[
+DELETE FROM BOARD
+ WHERE 1 = 1
+   AND BOARD_NO = #{BOARD_NO}
+]]>
+</delete>
+
+<update id="updateBoard" parameterType="java.util.HashMap">
+<![CDATA[
+UPDATE BOARD SET
+        BOARD_TITLE    = #{BOARD_TITLE}
+       ,BOARD_CONTENT  = #{BOARD_CONTENT}
+       ,BOARD_USER_ID  = #{BOARD_USER_ID}
+       ,BOARD_REGDATE  = SYSDATE
+ WHERE 1 = 1
+   AND BOARD_NO = #{BOARD_NO}
+]]>
+</update>
+
+
 </mapper>

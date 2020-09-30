@@ -41,4 +41,16 @@ public class BoardRepository {
 		int boardInsert = mapper.insert("board.BoardRepository.insertBoard", param);
 		return boardInsert;
 	}
+	
+	public int deleteBoard(Map param) {
+		int boardDelete = mapper.delete("board.BoardRepository.deleteBoard", param);
+		
+		return boardDelete;
+	}
+	
+	public int updateBoard(Map param) {
+		int boardUpdate = mapper.delete("board.BoardRepository.updateBoard", param);
+		
+		return boardUpdate;
+	}
 }

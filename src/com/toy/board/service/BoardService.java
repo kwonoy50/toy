@@ -36,4 +36,13 @@ public class BoardService {
 		logger.debug("2222222param {}", param);
 		return boardRepository.insertBoard(param);
 	}
+	
+	
+	public int setDeleteBoard(Map param) {
+		return boardRepository.deleteBoard(param);
+	}	
+	
+	public int setUpdateBoard(Map param) {
+		return boardRepository.updateBoard(param);
+	}
 }

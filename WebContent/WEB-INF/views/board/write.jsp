@@ -7,22 +7,26 @@
 
 
 <head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <meta charset="UTF-8">
     <title>글쓰기</title>
 </head>
 
 <body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(function() {
 	$('#btn_insert').click(function() {
-		$('#frm').submit();
+		if(confirm("등록하시겠습니까?")){
+			$('#frm').submit();			
+		}
 	});
 });
 
 function insertBoard() {
-	$('#frm').submit();
+	if(confirm("등록하시겠습니까?")){
+		$('#frm').submit();			
+	}
 }
 
 </script>
@@ -33,7 +37,7 @@ function insertBoard() {
 <button type="button" onclick="insertBoard()">등록2</button>
 
 </div>
-<form id="frm" name="frn" action="insert" method="get">
+<form id="frm" name="frn" action="/board/insert" method="post">
 <table border="1" width="600">
     <colgroup>
         <col width="25%">
