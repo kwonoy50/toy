@@ -15,29 +15,23 @@
 <body>
 
 <script type="text/javascript">
-$(function() {
-	$('#btn_insert').click(function() {
+$(document).ready(function() {
+	$('#btnWrite').click(function() {
 		if(confirm("등록하시겠습니까?")){
-			$('#frm').submit();			
+			$('#frm').submit();
 		}
 	});
 });
 
-function insertBoard() {
-	if(confirm("등록하시겠습니까?")){
-		$('#frm').submit();			
-	}
-}
 
 </script>
 <h2>게시글 작성</h2>
 <div>
-<button type="button" onclick="location.href='list'">목록</button>
-<button type="button" id="btn_insert">등록</button>
-<button type="button" onclick="insertBoard()">등록2</button>
+<button type="button" onclick="location.href='list'">목록</button><!-- 수정, validation 무조건, get -->
+<button type="button" id="btnWrite">등록</button>
 
 </div>
-<form id="frm" name="frn" action="/board/insert" method="post">
+<form id="frm" name="frn" action="/board/write" method="post">
 <table border="1" width="600">
     <colgroup>
         <col width="25%">
@@ -56,7 +50,6 @@ function insertBoard() {
             <th>내용</th>
             <td><textarea style="width: 99%" rows="10" name="BOARD_CONTENT" placeholder="내용을 입력해 주세요."></textarea></td>
         </tr>
-		<input type="submit"/>
     </tbody>
 </table>
 

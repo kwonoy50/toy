@@ -15,16 +15,11 @@
 <body>
 <script type="text/javascript">
 
-function updateBoard() {
-	if(confirm("수정하시겠습니까?")){
-		$('#frm').submit();
-	}
-}
 
-$(function(){
-	$('#btn_update').click(function() {
+$(document).ready(function() {
+	$('#btnUpdate').click(function() {
 		if(confirm("수정하시겠습니까?")){
-			$('#frm').submit();
+			$('#frm').submit();			
 		}
 	});
 });
@@ -33,8 +28,7 @@ $(function(){
 </script>
 <h2>게시글 수정</h2>
 <button type="button" onclick="location.href='list'">목록</button>
-<button type="button" id="btn_update">수정</button>
-<button type="button" onclick="updateBoard()">수정2</button>
+<button type="button" id="btnUpdate">수정</button>
 
 <form id="frm" name="frm" action="/board/update" method="post">
 <table border="1" width="600">
@@ -55,7 +49,6 @@ $(function(){
             <th>내용</th>
             <td><textarea style="width: 99%" rows="10" name="BOARD_CONTENT" placeholder="내용을 입력해 주세요.">${boardUpdate.BOARD_CONTENT}</textarea></td>
         </tr>
-		<input type="submit"/>
     </tbody>
 </table>
 <input type="hidden" name="BOARD_NO" value="${boardUpdate.BOARD_NO}" />

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,6 +30,7 @@ public class BoardController {
 		return mav;
 	}
 	
+	
 	@RequestMapping("/board/detail")
 	public ModelAndView boardDetail(@RequestParam Map param) {	
 		ModelAndView mav = new ModelAndView("board/detail");
@@ -40,55 +42,55 @@ public class BoardController {
 		return mav;
 	}
 	
-	@RequestMapping("/board/goWrite")
-	public String goWrite() {
+	
+	@RequestMapping(value = "/board/write", method = RequestMethod.GET)
+	public ModelAndView writeWithGet() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("board/write");
 		
-		return "/board/write";
+		return mav;
 	}
 	
-	/*
-	 * @RequestMapping("/board/insert") public ModelAndView
-	 * boardInsert(@RequestParam Map param) { ModelAndView mav = new ModelAndView();
-	 * logger.debug("333333333param {}", param);
-	 * logger.debug("param.BOARD_TITLE: {}", param.get("BOARD_TITLE"));
-	 * 
-	 * mav.addObject("boardInsert", boardService.setInsertBoard(param));
-	 * mav.setViewName("board/list");
-	 * 
-	 * return mav; }
-	 */
 	
-	@RequestMapping("/board/insert")
-	public String boardInsert(@RequestParam Map param) {
+	@RequestMapping(value = "/board/write", method = RequestMethod.POST)
+	public ModelAndView writeWithPost(@RequestParam Map param) {
+		ModelAndView mav = new ModelAndView();
+		//redirect 경우 /board/list 하였을경우 /board/board/list
+		mav.setViewName("redirect:list");
 		boardService.setInsertBoard(param);
 		
-		//redirect 하지않으면 계속 등록됨.
-		return "redirect:/board/list";
+		return mav;		
 	}
+	
+	
+	@RequestMapping(value = "/board/update", method = RequestMethod.GET)
+	public ModelAndView updateWithGet(@RequestParam Map param) {
+		ModelAndView mav = new ModelAndView();
+		Map update = boardService.getBoardDetail(param);
+		
+		mav.addObject("boardUpdate", update);
+		mav.setViewName("board/update");
+		
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = "/board/update", method = RequestMethod.POST)
+	public ModelAndView updateWithPost(@RequestParam Map param) {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("redirect:list");
+		boardService.setUpdateBoard(param);
+		
+		return mav;
+	}	
+	
 	
 	@RequestMapping("/board/delete")
 	public String boardDelete(@RequestParam Map param) {
 		boardService.setDeleteBoard(param);
 		
 		return "redirect:/board/list";
-	}
-		
-	@RequestMapping("/board/goUpdate")
-	public ModelAndView goUpdate(@RequestParam Map param) {	
-		ModelAndView mav = new ModelAndView("board/update");
-		
-		Map update = boardService.getBoardDetail(param);
-		
-		mav.addObject("boardUpdate", update);
-		
-		return mav;
-	}
-	
-	@RequestMapping("/board/update")
-	public String boardUpdate(@RequestParam Map param) {
-		boardService.setUpdateBoard(param);
-		
-		return "redirect:/board/list";
-	}
-		
+	}	
+
 }

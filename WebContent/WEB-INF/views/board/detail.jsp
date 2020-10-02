@@ -15,38 +15,29 @@
 <body>
 <script type="text/javascript">
 
-function deleteBoard() {
-	if(confirm("삭제하시겠습니까?")){
-		//$('#frm').action = "/board/delete";
-		$("#frm").attr("action", "/board/delete");
-		$('#frm').submit();
-	}
-}
-
-$(function(){
-	$('#btn_delete').click(function() {
+$(document).ready(function() {
+	var $frm = $('#frm');
+	$('#btnDelete').click(function() { //요즘방법
 		if(confirm("삭제하시겠습니까?")){
-			$("#frm").attr("action", "/board/delete");
-			$('#frm').submit();
+			$frm.attr("action", "/board/delete");
+			$frm.submit();
 		}
 	});
-});
 
-$(function() {
-	$('#btn_update').click(function(){
-		location.href = "goUpdate?BOARD_NO=${boardDetail.BOARD_NO}";	
+	$('#btnUpdate').click(function() {
+		var $frm = $('#frm');
+		$frm.attr('action', '/board/update');
+		$frm.submit();
 	});
 });
-
 
 </script>
 <h2>게시글 상세</h2>
 <button type="button" onclick="location.href='list'">목록</button>
-<button type="button" id="btn_delete">삭제</button>
-<button type="button" onclick="deleteBoard()">삭제2</button>
+<button type="button" id="btnDelete">삭제</button>
 
-<button type="button" id="btn_update">수정</button>
-<form id="frm" method="post">
+<button type="button" id="btnUpdate">수정</button>
+<form id="frm" name="frm" action="/board/update" method="get">
 	<table border="1" width="600">
 	    <colgroup>
 	        <col width="15%">
@@ -54,7 +45,7 @@ $(function() {
 	        <col width="15%">
 	        <col width="*">
 	    </colgroup>     
-	    <tbody>    	
+	    <tbody>
 	        <tr>
 	            <th>제목</th>
 	            <td colspan="3">${boardDetail.BOARD_TITLE}</td>
@@ -67,7 +58,7 @@ $(function() {
 	        </tr>
 	        <tr>
 	            <th>내용</th>
-	            <td colspan="3">${boardDetail.BOARD_CONTENT}</td>
+	            <td colspan="3"><pre>${boardDetail.BOARD_CONTENT}</pre></td>
 	        </tr>
 	    </tbody>
 	</table>
