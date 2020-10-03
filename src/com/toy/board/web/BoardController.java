@@ -93,4 +93,13 @@ public class BoardController {
 		return "redirect:/board/list";
 	}	
 
+	
+	@RequestMapping("/board/search")
+	public ModelAndView boardSearch(@RequestParam Map<String, String> param) {		
+		ModelAndView mav = new ModelAndView("board/list");
+		logger.debug("param {}", param);
+		mav.addObject("boardList", boardService.getBoardSearch(param));
+		
+		return mav;
+	}	
 }

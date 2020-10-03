@@ -34,6 +34,7 @@ public class BoardRepository {
 		return boardDetail;
 	}
 	
+	
 	public int insertBoard(Map param) {
 		logger.debug("11111111param {}", param);
 		logger.debug("param.BOARD_TITLE: {}", param.get("BOARD_TITLE"));
@@ -42,15 +43,27 @@ public class BoardRepository {
 		return boardInsert;
 	}
 	
+	
 	public int deleteBoard(Map param) {
 		int boardDelete = mapper.delete("board.BoardRepository.deleteBoard", param);
 		
 		return boardDelete;
 	}
 	
+	
 	public int updateBoard(Map param) {
 		int boardUpdate = mapper.delete("board.BoardRepository.updateBoard", param);
 		
 		return boardUpdate;
 	}
+	
+	
+	public List<Map> selectBoardSearch(Map param) {
+		logger.debug("selectSearch : {}", param);
+		List<Map> boardSearch = mapper.selectList("board.BoardRepository.selectSearch", param);
+		logger.debug("selectSearch : {}", boardSearch);
+		return boardSearch;
+	}
+
+	
 }

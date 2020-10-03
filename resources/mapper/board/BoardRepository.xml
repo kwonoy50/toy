@@ -53,6 +53,7 @@ INSERT INTO BOARD (
 ]]>
 </insert>
 
+
 <delete id="deleteBoard" parameterType="java.util.HashMap">
 <![CDATA[
 DELETE FROM BOARD
@@ -60,6 +61,7 @@ DELETE FROM BOARD
    AND BOARD_NO = #{BOARD_NO}
 ]]>
 </delete>
+
 
 <update id="updateBoard" parameterType="java.util.HashMap">
 <![CDATA[
@@ -72,6 +74,26 @@ UPDATE BOARD SET
    AND BOARD_NO = #{BOARD_NO}
 ]]>
 </update>
+
+
+<select id="selectSearch" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+<![CDATA[
+SELECT        
+        BOARD_NO
+       ,BOARD_TITLE
+       ,BOARD_CONTENT
+       ,BOARD_USER_ID
+       ,BOARD_REGDATE
+  FROM
+        BOARD
+ WHERE  1 = 1
+<choose>
+   <when test='search.equals('title')'>
+   AND BOARD_TITLE LIKE '%' || #{keyword} || '%'  
+   </when>
+</choose>
+]]>
+</select>
 
 
 </mapper>

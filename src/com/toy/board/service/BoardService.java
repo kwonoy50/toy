@@ -42,7 +42,14 @@ public class BoardService {
 		return boardRepository.deleteBoard(param);
 	}	
 	
+	
 	public int setUpdateBoard(Map param) {
 		return boardRepository.updateBoard(param);
 	}
+	
+	
+	public List<Map> getBoardSearch(Map param){
+		return boardRepository.selectBoardSearch(param);
+	}
+
 }

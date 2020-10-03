@@ -20,14 +20,20 @@ a.no-uline:hover   { text-decoration:underline }
 <body>
 	<script type="text/javascript">
 	$(document).ready(function() {
+		var $frm = $('#frm');
 		$('#btnWrite').click(function() {
 			//$(location).attr('href', 'write');
-			var $frm = $('#frm');
 			$frm.attr('action', '/board/write');
 			$frm.submit();
 		});
-	});
-
+		
+		$('#btnSearch').click(function() {
+			$frm.attr('action', '/board/search');
+			$frm.submit();
+		})
+	});	
+	
+	
 	function goDetail(boardNo) {
 		$('#BOARD_NO').val(boardNo);
 		$('#frm').submit();
@@ -40,6 +46,13 @@ a.no-uline:hover   { text-decoration:underline }
 	</div>
 	<form id="frm" name="frm" action="/board/detail" method="get">
 		<input type="hidden" id="BOARD_NO" name="BOARD_NO" value="" />
+		<select name="search">
+			<option value="title">제목</option>
+			<option value="userId">작성자</option>
+			<option value="content">내용</option>
+		</select>
+		<input type="text" name="keyword" />
+		<button type="button" id="btnSearch">조회</button>
 	</form>
 	<table border="1" width="600">
 		<thead>
