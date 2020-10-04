@@ -15,7 +15,7 @@
 		$(document).ready(function() {
 			var $frm = $('#frm');
 			$('#btnWrite').click(function() {
-				if($('#BOARD_TITLE').val() == null || $('#BOARD_TITLE').val().trim() == ""){
+				if ($('#BOARD_TITLE').val() == null || $('#BOARD_TITLE').val().trim() == "") {
 					alert("제목을 입력해주세요.");
 					$('#BOARD_TITLE').focus();
 					return;

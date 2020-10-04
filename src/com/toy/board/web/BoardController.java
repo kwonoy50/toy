@@ -18,90 +18,84 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
-	
+
 	private final Logger logger = LoggerFactory.getLogger(getClass());
-	
+
 	@RequestMapping("/board/list")
-	public ModelAndView boardList(@RequestParam Map<String, String> param) {		
+	public ModelAndView boardList(@RequestParam Map<String, String> param) {
 		ModelAndView mav = new ModelAndView("board/list");
 
 		mav.addObject("boardList", boardService.getBoardList());
-		
+
 		return mav;
 	}
-	
-	
+
 	@RequestMapping("/board/detail")
-	public ModelAndView boardDetail(@RequestParam Map param) {	
+	public ModelAndView boardDetail(@RequestParam Map param) {
 		ModelAndView mav = new ModelAndView("board/detail");
-		
+
 		Map detail = boardService.getBoardDetail(param);
-		
+
 		mav.addObject("boardDetail", detail);
-		
+
 		return mav;
 	}
-	
-	
+
 	@RequestMapping(value = "/board/write", method = RequestMethod.GET)
-	public ModelAndView writeWithGet() {
+	public ModelAndView write() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("board/write");
-		
+
 		return mav;
 	}
-	
-	
+
 	@RequestMapping(value = "/board/write", method = RequestMethod.POST)
-	public ModelAndView writeWithPost(@RequestParam Map param) {
+	public ModelAndView write(@RequestParam Map param) {
 		ModelAndView mav = new ModelAndView();
-		//redirect 경우 /board/list 하였을경우 /board/board/list
-		mav.setViewName("redirect:list");
+		// redirect 경우 /board/list 하였을경우 /board/board/list
+		mav.setViewName("redirect:/board/list");
 		boardService.setInsertBoard(param);
-		
-		return mav;		
+
+		return mav;
 	}
-	
-	
+
 	@RequestMapping(value = "/board/update", method = RequestMethod.GET)
 	public ModelAndView updateWithGet(@RequestParam Map param) {
 		ModelAndView mav = new ModelAndView();
 		Map update = boardService.getBoardDetail(param);
-		
+
 		mav.addObject("boardUpdate", update);
 		mav.setViewName("board/update");
-		
+
 		return mav;
 	}
-	
-	
+
 	@RequestMapping(value = "/board/update", method = RequestMethod.POST)
 	public ModelAndView updateWithPost(@RequestParam Map param) {
 		ModelAndView mav = new ModelAndView();
-		
+
 		mav.setViewName("redirect:list");
 		boardService.setUpdateBoard(param);
-		
+
 		return mav;
-	}	
-	
-	
+	}
+
 	@RequestMapping("/board/delete")
 	public ModelAndView boardDelete(@RequestParam Map param) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:list");
 		boardService.setDeleteBoard(param);
-		
-		return mav;
-	}	
 
-	
+		return mav;
+	}
+
 	@RequestMapping("/board/search")
-	public ModelAndView boardSearch(@RequestParam Map param) {		
+	public ModelAndView boardSearch(@RequestParam Map param) {
 		ModelAndView mav = new ModelAndView("board/list");
 		logger.debug("param {}", param);
-		mav.addObject("boardList", boardService.getBoardSearch(param));
 		
+		mav.addObject("boardList", boardService.getBoardSearch(param));
+
 		return mav;
-	}	
+	}
 }

@@ -37,19 +37,22 @@ SELECT
 
 <insert id="insertBoard" parameterType="java.util.HashMap">
 <![CDATA[
-INSERT INTO BOARD (
-		BOARD_NO
-       ,BOARD_TITLE
-       ,BOARD_CONTENT
-       ,BOARD_USER_ID
-       ,BOARD_REGDATE
-        ) VALUES (
-        (SELECT NVL(MAX(BOARD_NO), 0)+1 FROM BOARD)
-       ,#{BOARD_TITLE}
-       ,#{BOARD_CONTENT}
-       ,#{BOARD_USER_ID}
-       ,SYSDATE
-        )
+INSERT INTO BOARD
+     (
+	   BOARD_NO
+     , BOARD_TITLE
+     , BOARD_CONTENT
+     , BOARD_USER_ID
+     , BOARD_REGDATE
+     ) 
+VALUES 
+     (
+       (SELECT NVL(MAX(BOARD_NO), 0)+1 FROM BOARD)
+     , #{BOARD_TITLE}
+     , #{BOARD_CONTENT}
+     , #{BOARD_USER_ID}
+     , SYSDATE
+     )
 ]]>
 </insert>
 
@@ -66,10 +69,10 @@ DELETE FROM BOARD
 <update id="updateBoard" parameterType="java.util.HashMap">
 <![CDATA[
 UPDATE BOARD SET
-        BOARD_TITLE    = #{BOARD_TITLE}
-       ,BOARD_CONTENT  = #{BOARD_CONTENT}
-       ,BOARD_USER_ID  = #{BOARD_USER_ID}
-       ,BOARD_REGDATE  = SYSDATE
+       BOARD_TITLE    = #{BOARD_TITLE}
+     , BOARD_CONTENT  = #{BOARD_CONTENT}
+     , BOARD_USER_ID  = #{BOARD_USER_ID}
+     , BOARD_REGDATE  = SYSDATE
  WHERE 1 = 1
    AND BOARD_NO = #{BOARD_NO}
 ]]>
@@ -77,6 +80,7 @@ UPDATE BOARD SET
 
 
 <select id="selectSearch" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+<![CDATA[
 SELECT        
         BOARD_NO
        ,BOARD_TITLE
@@ -86,19 +90,24 @@ SELECT
   FROM
         BOARD
  WHERE  1 = 1
-<if test='keyword != null'>
-   <if test='search.equals("title")'>
-   AND BOARD_TITLE LIKE CONCAT('%', #{keyword}, '%')  
-   </if>
-   <if test='search.equals("userId")'>
-   AND BOARD_USER_ID LIKE CONCAT('%', #{keyword}, '%')  
-   </if>
-   <if test='search.equals("content")'>
-   AND BOARD_CONTENT LIKE CONCAT('%', #{keyword}, '%')  
-   </if>
-</if>
-<![CDATA[
 ]]>
+<if test='keyword != null'>
+    <if test='search.equals("title")'>
+    <![CDATA[
+    AND BOARD_TITLE LIKE CONCAT('%', #{keyword}, '%')  
+    ]]>
+    </if>
+    <if test='search.equals("userId")'>
+    <![CDATA[
+    AND BOARD_USER_ID LIKE CONCAT('%', #{keyword}, '%')  
+    ]]>
+    </if>
+    <if test='search.equals("content")'>
+    <![CDATA[
+    AND BOARD_CONTENT LIKE CONCAT('%', #{keyword}, '%')  
+    ]]>
+    </if>
+</if>
 </select>
 
 
