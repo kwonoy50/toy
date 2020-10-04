@@ -87,15 +87,17 @@ public class BoardController {
 	
 	
 	@RequestMapping("/board/delete")
-	public String boardDelete(@RequestParam Map param) {
+	public ModelAndView boardDelete(@RequestParam Map param) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:list");
 		boardService.setDeleteBoard(param);
 		
-		return "redirect:/board/list";
+		return mav;
 	}	
 
 	
 	@RequestMapping("/board/search")
-	public ModelAndView boardSearch(@RequestParam Map<String, String> param) {		
+	public ModelAndView boardSearch(@RequestParam Map param) {		
 		ModelAndView mav = new ModelAndView("board/list");
 		logger.debug("param {}", param);
 		mav.addObject("boardList", boardService.getBoardSearch(param));

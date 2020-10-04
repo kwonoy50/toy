@@ -61,7 +61,6 @@ public class BoardRepository {
 	public List<Map> selectBoardSearch(Map param) {
 		logger.debug("selectSearch : {}", param);
 		List<Map> boardSearch = mapper.selectList("board.BoardRepository.selectSearch", param);
-		logger.debug("selectSearch : {}", boardSearch);
 		return boardSearch;
 	}
 

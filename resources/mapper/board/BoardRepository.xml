@@ -77,7 +77,6 @@ UPDATE BOARD SET
 
 
 <select id="selectSearch" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-<![CDATA[
 SELECT        
         BOARD_NO
        ,BOARD_TITLE
@@ -87,11 +86,18 @@ SELECT
   FROM
         BOARD
  WHERE  1 = 1
-<choose>
-   <when test='search.equals('title')'>
-   AND BOARD_TITLE LIKE '%' || #{keyword} || '%'  
-   </when>
-</choose>
+<if test='keyword != null'>
+   <if test='search.equals("title")'>
+   AND BOARD_TITLE LIKE CONCAT('%', #{keyword}, '%')  
+   </if>
+   <if test='search.equals("userId")'>
+   AND BOARD_USER_ID LIKE CONCAT('%', #{keyword}, '%')  
+   </if>
+   <if test='search.equals("content")'>
+   AND BOARD_CONTENT LIKE CONCAT('%', #{keyword}, '%')  
+   </if>
+</if>
+<![CDATA[
 ]]>
 </select>
 
