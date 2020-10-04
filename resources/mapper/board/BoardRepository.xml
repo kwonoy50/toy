@@ -19,7 +19,7 @@ SELECT
 </select>
 
 
-<select id="selectDetail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+<select id="selectDetail" parameterType="com.toy.board.vo.BoardVo" resultType="com.toy.board.vo.BoardVo">
 <![CDATA[
 SELECT
         BOARD_NO
@@ -30,7 +30,7 @@ SELECT
   FROM
         BOARD
  WHERE  1 = 1
-   AND  BOARD_NO = #{BOARD_NO}
+   AND  BOARD_NO = #{boardNo}
 ]]>
 </select>
 

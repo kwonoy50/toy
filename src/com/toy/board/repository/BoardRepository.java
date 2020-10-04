@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.toy.board.vo.BoardVo;
 import com.toy.common.mapper.SqlSessionMapper;
 
 @Repository
@@ -26,11 +27,13 @@ public class BoardRepository {
 	}
 
 
-	public Map selectBoardDetail(Map param) {
-		logger.debug("param: {}", param);
-		logger.debug("param.BOARD_NO: {}", param.get("BOARD_NO"));
-		
-		Map boardDetail = mapper.select("board.BoardRepository.selectDetail", param);
+	public BoardVo selectBoardDetail(BoardVo param) {
+//		BoardVo vo = new BoardVo();;
+//		logger.debug("param: {}", param);
+//		logger.debug("param.BOARD_NO: {}", param.get("BOARD_NO123"));
+//		logger.debug("param.BOARD_NO: {}", vo.getBoardNo123());
+//		
+		BoardVo boardDetail = mapper.select("board.BoardRepository.selectDetail", param);
 		return boardDetail;
 	}
 	

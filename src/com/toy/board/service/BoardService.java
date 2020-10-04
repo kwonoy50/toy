@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.toy.board.repository.BoardRepository;
+import com.toy.board.vo.BoardVo;
 
 @Service
 public class BoardService {
@@ -25,7 +26,13 @@ public class BoardService {
 	}
 
 
-	public Map getBoardDetail(Map param) {
+	/**
+	 * 게시물상세내용을 조회한다.
+	 * 
+	 * @param param 파라메타 vo
+	 * @return 게시물상세
+	 */
+	public BoardVo getBoardDetail(BoardVo param) {
 		
 		logger.debug("param {}", param);
 		return boardRepository.selectBoardDetail(param);

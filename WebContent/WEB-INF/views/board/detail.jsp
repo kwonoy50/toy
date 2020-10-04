@@ -43,21 +43,21 @@
 			    <tbody>
 			        <tr>
 			            <th>제목</th>
-			            <td colspan="3">${boardDetail.BOARD_TITLE}</td>
+			            <td colspan="3">${detailOut.boardTitle}</td>
 			        </tr>
 			        <tr>
 			            <th>작성자</th>
-			            <td>${boardDetail.BOARD_USER_ID}</td>
+			            <td>${detailOut.boardUserId}</td>
 			            <th>작성일</th>	
-						<td><fmt:formatDate value="${boardDetail.BOARD_REGDATE}" pattern="yyyy.MM.dd"/></td>			
+						<td><fmt:formatDate value="${detailOut.boardRegdate}" pattern="yyyy.MM.dd"/></td>			
 			        </tr>
 			        <tr>
 			            <th>내용</th>
-			            <td colspan="3"><pre>${boardDetail.BOARD_CONTENT}</pre></td>
+			            <td colspan="3"><pre>${detailOut.boardContent}</pre></td>
 			        </tr>
 			    </tbody>
 			</table>
-			<input type="hidden" name="BOARD_NO" value="${boardDetail.BOARD_NO}" />
+			<input type="hidden" name="boardNo" value="${detailOut.boardNo}" />
 		</form>
 	</body>
 </html>

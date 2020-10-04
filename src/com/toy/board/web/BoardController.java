@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.toy.board.service.BoardService;
+import com.toy.board.vo.BoardVo;
+import com.toy.board.web.io.DetailIn;
+import com.toy.board.web.io.DetailOut;
 
 @Controller
 public class BoardController {
@@ -30,13 +33,33 @@ public class BoardController {
 		return mav;
 	}
 
+
+	/**
+	 * 게시물상세 조회
+	 * 
+	 * @param in Input
+	 * @return ModelAndView
+	 */
 	@RequestMapping("/board/detail")
-	public ModelAndView boardDetail(@RequestParam Map param) {
+	public ModelAndView boardDetail(DetailIn in) {
+		// parameter 설정
+		BoardVo paramVo = new BoardVo();
+		paramVo.setBoardNo(in.getBoardNo());  // 게시물번호
+		
+		// 서비스 호출
+		BoardVo resultVo = boardService.getBoardDetail(paramVo);
+		
+		// Out 값 설정
+		DetailOut out = new DetailOut();
+		out.setBoardNo(resultVo.getBoardNo());            // 게시물번호
+		out.setBoardTitle(resultVo.getBoardTitle());      // 게시물제목
+		out.setBoardContent(resultVo.getBoardContent());  // 게시물내용
+		out.setBoardUserId(resultVo.getBoardUserId());    // 게시물작성자ID
+		out.setBoardRegdate(resultVo.getBoardRegdate());  // 게시물등록일자
+
+		// view 설정
 		ModelAndView mav = new ModelAndView("board/detail");
-
-		Map detail = boardService.getBoardDetail(param);
-
-		mav.addObject("boardDetail", detail);
+		mav.addObject("detailOut", out);
 
 		return mav;
 	}
@@ -62,9 +85,9 @@ public class BoardController {
 	@RequestMapping(value = "/board/update", method = RequestMethod.GET)
 	public ModelAndView updateWithGet(@RequestParam Map param) {
 		ModelAndView mav = new ModelAndView();
-		Map update = boardService.getBoardDetail(param);
+//		Map update = boardService.getBoardDetail(param);
 
-		mav.addObject("boardUpdate", update);
+//		mav.addObject("boardUpdate", update);
 		mav.setViewName("board/update");
 
 		return mav;

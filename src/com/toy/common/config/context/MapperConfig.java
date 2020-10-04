@@ -19,9 +19,9 @@ public class MapperConfig {
     @Bean
     public SqlSessionFactory sqlSessionFactory(ApplicationContext context, DataSource dataSource){
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-            configuration.setCacheEnabled(false);
-            configuration.setLazyLoadingEnabled(true);
-            configuration.setMapUnderscoreToCamelCase(true);
+        configuration.setCacheEnabled(false);
+        configuration.setLazyLoadingEnabled(true);
+        configuration.setMapUnderscoreToCamelCase(true);
 //            defaultStatementTimeout = App.getConfig("mapper.sql.timout", "${DEFAULT_SQL_MAPPER_TIMEOUT}").toInt()
             //--------------------------------------------------------------------------------
 //        configuration.addInterceptor(LoggingInterceptor())

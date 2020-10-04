@@ -33,6 +33,7 @@
 		
 		function goDetail(boardNo) {
 			$('#BOARD_NO').val(boardNo);
+			$('#boardNo').val(boardNo);
 			$('#frm').submit();
 		}
 		
@@ -42,6 +43,7 @@
 			<button type="button" id="btnWrite">글쓰기</button>
 		</div>
 		<form id="frm" name="frm" action="/board/detail" method="get">
+			<input type="hidden" id="boardNo" name="boardNo" value="" />
 			<input type="hidden" id="BOARD_NO" name="BOARD_NO" value="" />
 			<select name="search">
 				<option value="title">제목</option>
