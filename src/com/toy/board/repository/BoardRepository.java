@@ -20,51 +20,73 @@ public class BoardRepository {
 	private SqlSessionMapper mapper;
 
 
-	public List<Map> selectBoardList() {
-		List<Map> boardList = mapper.selectList("board.BoardRepository.selectList");
+	/**
+	 * 게시물목록을 조회한다.
+	 * 
+	 * @param param 파라메타 vo
+	 * @return 게시물목록
+	 */
+	public List<BoardVo> selectBoardList(BoardVo param) {
+		List<BoardVo> boardList = mapper.selectList("board.BoardRepository.selectList", param);
 		logger.debug("boardList : {}", boardList);
 		return boardList;
 	}
 
 
+	/**
+	 * 게시물상세내용을 조회한다.
+	 * 
+	 * @param param 파라메타 vo
+	 * @return 게시물상세
+	 */
 	public BoardVo selectBoardDetail(BoardVo param) {
 //		BoardVo vo = new BoardVo();;
-//		logger.debug("param: {}", param);
 //		logger.debug("param.BOARD_NO: {}", param.get("BOARD_NO123"));
 //		logger.debug("param.BOARD_NO: {}", vo.getBoardNo123());
-//		
+
 		BoardVo boardDetail = mapper.select("board.BoardRepository.selectDetail", param);
 		return boardDetail;
 	}
 	
 	
-	public int insertBoard(Map param) {
+	/**
+	 * 게시물을 등록한다.
+	 * 
+	 * @param param 파라메타 vo
+	 * @return 게시물등록
+	 */
+	public int writeBoard(BoardVo param) {
 		logger.debug("11111111param {}", param);
-		logger.debug("param.BOARD_TITLE: {}", param.get("BOARD_TITLE"));
+		logger.debug("param.BOARD_TITLE: {}", param.getBoardNo());
 		
-		int boardInsert = mapper.insert("board.BoardRepository.insertBoard", param);
+		int boardInsert = mapper.insert("board.BoardRepository.writeBoard", param);
 		return boardInsert;
 	}
 	
 	
-	public int deleteBoard(Map param) {
+	/**
+	 * 게시물을 삭제한다.
+	 * 
+	 * @param param 파라메타 vo
+	 * @return 게시물삭제
+	 */
+	public int deleteBoard(BoardVo param) {
 		int boardDelete = mapper.delete("board.BoardRepository.deleteBoard", param);
 		
 		return boardDelete;
 	}
 	
 	
-	public int updateBoard(Map param) {
+	/**
+	 * 게시물상세내용을 수정한다.
+	 * 
+	 * @param param 파라메타 vo
+	 * @return 게시물수정
+	 */
+	public int updateBoard(BoardVo param) {
 		int boardUpdate = mapper.delete("board.BoardRepository.updateBoard", param);
 		
 		return boardUpdate;
-	}
-	
-	
-	public List<Map> selectBoardSearch(Map param) {
-		logger.debug("selectSearch : {}", param);
-		List<Map> boardSearch = mapper.selectList("board.BoardRepository.selectSearch", param);
-		return boardSearch;
 	}
 
 	

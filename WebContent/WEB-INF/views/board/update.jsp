@@ -14,22 +14,27 @@
 		
 		$(document).ready(function() {
 			var $frm = $('#frm');
+			var $boardTitle = $('#boardTitle');
+			var $boardUserId = $('#boardUserId');
+			var $boardContent = $('#boardContent');
+			
+			// validation
 			$('#btnUpdate').click(function() {
-				if($('#BOARD_TITLE').val() == null || $('#BOARD_TITLE').val().trim() == ""){
+				if ($boardTitle.val() == null || $boardTitle.val().trim() == "") {
 					alert("제목을 입력해주세요.");
-					$('#BOARD_TITLE').focus();
+					$boardTitle.focus();
 					return;
 				}
 		
-				if($('#BOARD_USER_ID').val() == null || $('#BOARD_USER_ID').val().trim() == ""){
+				if ($boardUserId.val() == null || $boardUserId.val().trim() == "") {
 					alert("작성자를 입력해주세요.");
-					$('#BOARD_USER_ID').focus();
+					$boardUserId.focus();
 					return;
 				}
 		
-				if($('#BOARD_CONTENT').val() == null || $('#BOARD_CONTENT').val().trim() == ""){
+				if ($boardContent.val() == null || $boardContent.val().trim() == "") {
 					alert("내용을 입력해주세요.");
-					$('#BOARD_CONTENT').focus();
+					$boardContent.focus();
 					return;
 				}
 				
@@ -52,19 +57,19 @@
 			    <tbody>
 			        <tr>
 			            <th>제목</th>
-			            <td><input type="text" style="width: 99%" id="BOARD_TITLE" name="BOARD_TITLE" placeholder="제목을 입력해 주세요." value="${boardUpdate.BOARD_TITLE}"/></td>
+			            <td><input type="text" style="width: 99%" id="boardTitle" name="boardTitle" placeholder="제목을 입력해 주세요." value="${boardUpdate.boardTitle}"/></td>
 			        </tr>
 			        <tr>
 			            <th>작성자</th>
-			            <td><input type="text" style="width: 99%" id="BOARD_USER_ID" name="BOARD_USER_ID" placeholder="작성자를 입력해 주세요."value="${boardUpdate.BOARD_USER_ID}"/></td>
+			            <td><input type="text" style="width: 99%" id="boardUserId" name="boardUserId" placeholder="작성자를 입력해 주세요."value="${boardUpdate.boardUserId}"/></td>
 			        </tr>
 			        <tr>
 			            <th>내용</th>
-			            <td><textarea style="width: 99%" rows="10" id="BOARD_CONTENT" name="BOARD_CONTENT" placeholder="내용을 입력해 주세요.">${boardUpdate.BOARD_CONTENT}</textarea></td>
+			            <td><textarea style="width: 99%" rows="10" id="boardContent" name="boardContent" placeholder="내용을 입력해 주세요.">${boardUpdate.boardContent}</textarea></td>
 			        </tr>
 			    </tbody>
 			</table>
-			<input type="hidden" name="BOARD_NO" value="${boardUpdate.BOARD_NO}" />
+			<input type="hidden" name="boardNo" value="${boardUpdate.boardNo}" />
 		</form>
 	</body>
 </html>

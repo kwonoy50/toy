@@ -1,10 +1,10 @@
-package com.toy.board.vo;
+package com.toy.board.web.io;
 
 import java.sql.Date;
 
 
-public class BoardVo {
-	
+public class ListOut {
+
 	/** 게시판번호 */
 	private int boardNo;
 	/** 게시판제목 */
@@ -14,7 +14,7 @@ public class BoardVo {
 	/** 게시판작성자ID */
 	private String boardUserId;
 	/** 게시판작성일 */
-	private Date boardRegdate;	
+	private Date boardRegdate;
 	/** 게시판검색종류 */
 	private String search;	
 	/** 게시판검색단어 */

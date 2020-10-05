@@ -19,20 +19,30 @@
 		
 		$(document).ready(function() {
 			var $frm = $('#frm');
+			var $frmSearch = $('#frmSearch');
+			
+			// 글쓰기 페이지 이동
 			$('#btnWrite').click(function() {
 				$frm.attr('action', '/board/write');
 				$frm.submit();
 			});
 			
+			// 검색
 			$('#btnSearch').click(function() {
-				$frm.attr('action', '/board/search');
-				$frm.submit();
-			})
+				$frmSearch.attr('action', '/board/list');
+				$frmSearch.submit();
+			});
+			
+			// Enter키 조회 클릭
+			$('#keyword').keydown(function(key) {
+				if (key.keyCode == 13) {
+					$('#btnSearch').click();
+				}
+			});
 		});	
 		
-		
+		// 상세페이지 이동
 		function goDetail(boardNo) {
-			$('#BOARD_NO').val(boardNo);
 			$('#boardNo').val(boardNo);
 			$('#frm').submit();
 		}
@@ -44,13 +54,14 @@
 		</div>
 		<form id="frm" name="frm" action="/board/detail" method="get">
 			<input type="hidden" id="boardNo" name="boardNo" value="" />
-			<input type="hidden" id="BOARD_NO" name="BOARD_NO" value="" />
+		</form>
+		<form id="frmSearch" name="frmSearch" action="/board/list" method="get">
 			<select name="search">
-				<option value="title">제목</option>
-				<option value="userId">작성자</option>
-				<option value="content">내용</option>
+				<option value="title" <c:if test="${search.search == 'title'}">selected="selected"</c:if>>제목</option>
+				<option value="userId" <c:if test="${search.search == 'userId'}">selected="selected"</c:if>>작성자</option>
+				<option value="content" <c:if test="${search.search == 'content'}">selected="selected"</c:if>>내용</option>
 			</select>
-			<input type="text" name="keyword" />
+			<input type="text" name="keyword" id="keyword" value="${search.keyword}"/>
 			<button type="button" id="btnSearch">조회</button>
 		</form>
 		<table border="1" width="600">
@@ -68,10 +79,10 @@
 				</c:if>
 				<c:forEach var="row" items="${boardList}" varStatus="status">
 					<tr>
-						<td>${row.BOARD_NO}</td>
-						<td><a onclick="goDetail('${row.BOARD_NO}')">${row.BOARD_TITLE}</a></td>
-						<td>${row.BOARD_USER_ID}</td>
-						<td><fmt:formatDate value="${row.BOARD_REGDATE}" pattern="yyyy.MM.dd"/></td>
+						<td>${row.boardNo}</td>
+						<td><a onclick="goDetail('${row.boardNo}')">${row.boardTitle}</a></td>
+						<td>${row.boardUserId}</td>
+						<td><fmt:formatDate value="${row.boardRegdate}" pattern="yyyy.MM.dd"/></td>
 					</tr>
 				</c:forEach>
 			</tbody>

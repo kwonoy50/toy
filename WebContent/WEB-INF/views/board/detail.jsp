@@ -14,13 +14,16 @@
 		
 		$(document).ready(function() {
 			var $frm = $('#frm');
-			$('#btnDelete').click(function() { //요즘방법
+			
+			// 삭제
+			$('#btnDelete').click(function() {
 				if(confirm("삭제하시겠습니까?")){
 					$frm.attr("action", "/board/delete");
 					$frm.submit();
 				}
 			});
 		
+			// 수정 페이지 이동
 			$('#btnUpdate').click(function() {
 				$frm.attr('action', '/board/update');
 				$frm.submit();

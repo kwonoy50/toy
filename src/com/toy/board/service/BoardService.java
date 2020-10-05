@@ -21,8 +21,14 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepository;
 	
-	public List<Map> getBoardList(){
-		return boardRepository.selectBoardList();
+	/**
+	 * 게시물목록을 조회한다.
+	 * 
+	 * @param param 파라메타 vo
+	 * @return 게시물목록
+	 */
+	public List<BoardVo> getBoardList(BoardVo param){
+		return boardRepository.selectBoardList(param);
 	}
 
 
@@ -39,24 +45,37 @@ public class BoardService {
 	}
 	
 	
-	public int setInsertBoard(Map param) {
+	/**
+	 * 게시물을 등록한다.
+	 * 
+	 * @param param 파라메타 vo
+	 * @return 게시물등록
+	 */
+	public int setWriteBoard(BoardVo param) {
 		logger.debug("2222222param {}", param);
-		return boardRepository.insertBoard(param);
+		return boardRepository.writeBoard(param);
 	}
 	
 	
-	public int setDeleteBoard(Map param) {
+	/**
+	 * 게시물을 삭제한다.
+	 * 
+	 * @param param 파라메타 vo
+	 * @return 게시물삭제
+	 */
+	public int setDeleteBoard(BoardVo param) {
 		return boardRepository.deleteBoard(param);
 	}	
 	
 	
-	public int setUpdateBoard(Map param) {
+	/**
+	 * 게시물상세내용을 수정한다.
+	 * 
+	 * @param param 파라메타 vo
+	 * @return 게시물수정
+	 */
+	public int setUpdateBoard(BoardVo param) {
 		return boardRepository.updateBoard(param);
 	}
 	
-	
-	public List<Map> getBoardSearch(Map param){
-		return boardRepository.selectBoardSearch(param);
-	}
-
 }

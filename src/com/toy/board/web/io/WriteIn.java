@@ -1,9 +1,8 @@
-package com.toy.board.vo;
+package com.toy.board.web.io;
 
 import java.sql.Date;
 
-
-public class BoardVo {
+public class WriteIn {
 	
 	/** 게시판번호 */
 	private int boardNo;
@@ -14,25 +13,9 @@ public class BoardVo {
 	/** 게시판작성자ID */
 	private String boardUserId;
 	/** 게시판작성일 */
-	private Date boardRegdate;	
-	/** 게시판검색종류 */
-	private String search;	
-	/** 게시판검색단어 */
-	private String keyword;
-
+	private Date boardRegdate;
 	
-	public String getSearch() {
-		return search;
-	}
-	public void setSearch(String search) {
-		this.search = search;
-	}
-	public String getKeyword() {
-		return keyword;
-	}
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
+	
 	public int getBoardNo() {
 		return boardNo;
 	}
