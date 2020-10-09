@@ -15,45 +15,14 @@
 		</style>
 	</head>	
 	<body>
-		<script type="text/javascript">
-		
-		$(document).ready(function() {
-			var $frm = $('#frm');
-			var $frmSearch = $('#frmSearch');
-			
-			// 글쓰기 페이지 이동
-			$('#btnWrite').click(function() {
-				$frm.attr('action', '/board/write');
-				$frm.submit();
-			});
-			
-			// 검색
-			$('#btnSearch').click(function() {
-				$frmSearch.attr('action', '/board/list');
-				$frmSearch.submit();
-			});
-			
-			// Enter키 조회 클릭
-			$('#keyword').keydown(function(key) {
-				if (key.keyCode == 13) {
-					$('#btnSearch').click();
-				}
-			});
-		});	
-		
-		// 상세페이지 이동
-		function goDetail(boardNo) {
-			$('#boardNo').val(boardNo);
-			$('#frm').submit();
-		}
-		
-		</script>
 		<h2>게시글 목록</h2>
 		<div>
 			<button type="button" id="btnWrite">글쓰기</button>
 		</div>
 		<form id="frm" name="frm" action="/board/detail" method="get">
 			<input type="hidden" id="boardNo" name="boardNo" value="" />
+			<input type="hidden" id="search" name="search" value="${search.search}" />
+			<input type="hidden" id="keyword" name="keyword" value="${search.keyword}" />
 		</form>
 		<form id="frmSearch" name="frmSearch" action="/board/list" method="get">
 			<select name="search">
@@ -87,5 +56,76 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<form id="frmPage" name="frmPage" action="/board/list" method="get">
+			<input type="hidden" id="page" name="page" value="">
+			<input type="hidden" id="search" name="search" value="${search.search}" />
+			<input type="hidden" id="keyword" name="keyword" value="${search.keyword}" />
+		</form>
+		<table border="1" width="600">
+			<tr>
+				<td align="center">
+			    <c:if test="${pageMaker.prev}">
+			    	<a onclick="goPrev('${pageMaker.startPage-1}')">&nbsp;<&nbsp;</a>
+			    </c:if>
+			    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
+			    	&nbsp;<a onclick="goPaging('${pageNum}')">${pageNum}</a>&nbsp;
+			    </c:forEach>
+			    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+			    	<a onclick="goNext('${pageMaker.endPage+1}')">&nbsp;>&nbsp;</a>
+			    </c:if>
+			    </td>
+			</tr>
+		</table>
+		<script type="text/javascript">
+		
+		$(document).ready(function() {
+			var $frm = $('#frm');
+			var $frmSearch = $('#frmSearch');
+			
+			// 글쓰기 페이지 이동
+			$('#btnWrite').click(function() {
+				$frm.attr('action', '/board/write');
+				$frm.submit();
+			});
+			
+			// 검색
+			$('#btnSearch').click(function() {
+				$frmSearch.attr('action', '/board/list');
+				$frmSearch.submit();
+			});
+			
+			// Enter키 조회 클릭
+			$('#keyword').keydown(function(key) {
+				if (key.keyCode == 13) {
+					$('#btnSearch').click();
+				}
+			});
+		});	
+		
+		// 상세페이지 이동
+		function goDetail(boardNo) {
+			$('#boardNo').val(boardNo);
+			$('#frm').submit();
+		}
+		
+		// 페이징 이동
+		function goPaging(page) {
+			$('#page').val(page);
+			$('#frmPage').submit();
+		}
+		
+		// 이전으로 이동
+		function goPrev(page) {
+			$('#page').val(page);
+			$('#frmPage').submit();
+		}
+		
+		// 다음으로 이동
+		function goNext(page) {
+			$('#page').val(page);
+			$('#frmPage').submit();
+		}
+		
+		</script>
 	</body>
 </html>

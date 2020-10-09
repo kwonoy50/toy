@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.toy.board.repository.BoardRepository;
 import com.toy.board.vo.BoardVo;
+import com.toy.board.vo.PageMaker;
 
 @Service
 public class BoardService {
@@ -31,7 +32,18 @@ public class BoardService {
 		return boardRepository.selectBoardList(param);
 	}
 
+	
+	/**
+	 * 게시물갯수를 조회한다.
+	 * 
+	 * @param param 
+	 * @return 게시물갯수
+	 */
+	public int getBoardCount(BoardVo param) {
+		return boardRepository.countBoard(param);
+	}
 
+	
 	/**
 	 * 게시물상세내용을 조회한다.
 	 * 

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.toy.board.service.BoardService;
 import com.toy.board.vo.BoardVo;
+import com.toy.board.vo.PageMaker;
 import com.toy.board.web.io.DeleteIn;
 import com.toy.board.web.io.DetailIn;
 import com.toy.board.web.io.DetailOut;
@@ -36,31 +37,30 @@ public class BoardController {
 	 */
 	@RequestMapping("/board/list")
 	public ModelAndView list(ListIn in) {
-
+		// parameter 설정
 		BoardVo paramVo = new BoardVo();
 	    paramVo.setSearch(in.getSearch());
 	    paramVo.setKeyword(in.getKeyword());
-		
+		paramVo.setPage(in.getPage());
 
+	    PageMaker pageMaker = new PageMaker();
+	    pageMaker.setVo(paramVo);
+	    pageMaker.setTotalCount(boardService.getBoardCount(paramVo));
+	    logger.debug("getBoardCount : {}", pageMaker.getTotalCount());
+
+		// 서비스 호출
 		List<BoardVo> resultVo = boardService.getBoardList(paramVo);
 
 		ListOut out = new ListOut();
 		out.setSearch(in.getSearch());
 		out.setKeyword(in.getKeyword());
-		/*
-		List<ListOut> out = new ArrayList();
-		
-		out.setBoardNo(resultVo.getBoardNo()); // 게시물번호
-		out.setBoardTitle(resultVo.getBoardTitle()); // 게시물제목
-		out.setBoardContent(resultVo.getBoardContent()); // 게시물내용
-		out.setBoardUserId(resultVo.getBoardUserId()); // 게시물작성자ID
-		out.setBoardRegdate(resultVo.getBoardRegdate()); // 게시물등록일자
-		*/
 
+		// view 설정 및 오브젝트 삽입
 		ModelAndView mav = new ModelAndView("board/list");
 		mav.addObject("boardList", resultVo);
 		mav.addObject("search", out);
-
+		mav.addObject("pageMaker", pageMaker);
+		
 		return mav;
 	}
 	
@@ -87,9 +87,14 @@ public class BoardController {
 		out.setBoardContent(resultVo.getBoardContent()); // 게시물내용
 		out.setBoardUserId(resultVo.getBoardUserId());   // 게시물작성자ID
 		out.setBoardRegdate(resultVo.getBoardRegdate()); // 게시물등록일자
-		logger.debug("out : {}", out.getBoardContent());
 		
-		// view 설정
+		// 검색 조건 유지
+		out.setSearch(in.getSearch());
+		out.setKeyword(in.getKeyword());
+		
+		logger.debug("getKeyword : {}", in.getKeyword());
+
+		// view 설정 및 오브젝트 삽입
 		ModelAndView mav = new ModelAndView("board/detail");
 		mav.addObject("detailOut", out);
 
@@ -105,6 +110,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "/board/write", method = RequestMethod.GET)
 	public ModelAndView write() {
+		// view 설정
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("board/write");
 
@@ -151,6 +157,10 @@ public class BoardController {
 
 		// 서비스 호출
 		BoardVo resultVo = boardService.getBoardDetail(paramVo);
+		
+		// 검색 조건 유지
+		resultVo.setSearch(in.getSearch());
+		resultVo.setKeyword(in.getKeyword());
 
 		// view 설정 및 오브젝트 삽입
 		ModelAndView mav = new ModelAndView();
@@ -181,7 +191,7 @@ public class BoardController {
 
 		// view 설정
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:list");
+		mav.setViewName("redirect:/board/list");
 
 		return mav;
 	}
@@ -194,7 +204,7 @@ public class BoardController {
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/board/delete")
-	public ModelAndView boardDelete(DeleteIn in) {
+	public ModelAndView delete(DeleteIn in) {
 		// parameter 설정
 		BoardVo paramVo = new BoardVo();
 		paramVo.setBoardNo(in.getBoardNo()); // 게시물번호
@@ -204,7 +214,7 @@ public class BoardController {
 
 		// view 설정
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:list");
+		mav.setViewName("redirect:/board/list");
 
 		return mav;
 	}

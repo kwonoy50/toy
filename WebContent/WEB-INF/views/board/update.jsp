@@ -10,6 +10,34 @@
 	    <title>수정</title>
 	</head>	
 	<body>
+		<h2>게시글 수정</h2>
+		<button type="button" id="btnList">목록</button>
+		<button type="button" id="btnUpdate">수정</button>		
+		<form id="frm" name="frm" action="/board/update" method="post">
+			<table border="1" width="600">
+			    <colgroup>
+			        <col width="25%">
+			        <col width="*">
+			    </colgroup>
+			    <tbody>
+			        <tr>
+			            <th>제목</th>
+			            <td><input type="text" style="width: 99%" id="boardTitle" name="boardTitle" placeholder="제목을 입력해 주세요." value="${boardUpdate.boardTitle}"/></td>
+			        </tr>
+			        <tr>
+			            <th>작성자</th>
+			            <td><input type="text" style="width: 99%" id="boardUserId" name="boardUserId" placeholder="작성자를 입력해 주세요."value="${boardUpdate.boardUserId}"/></td>
+			        </tr>
+			        <tr>
+			            <th>내용</th>
+			            <td><textarea style="width: 99%" rows="10" id="boardContent" name="boardContent" placeholder="내용을 입력해 주세요.">${boardUpdate.boardContent}</textarea></td>
+			        </tr>
+			    </tbody>
+			</table>
+			<input type="hidden" name="boardNo" value="${boardUpdate.boardNo}" />
+			<input type="hidden" id="search" name="search" value="${boardUpdate.search}" />
+			<input type="hidden" id="keyword" name="keyword" value="${boardUpdate.keyword}" />
+		</form>
 		<script type="text/javascript">	
 		
 		$(document).ready(function() {
@@ -17,6 +45,12 @@
 			var $boardTitle = $('#boardTitle');
 			var $boardUserId = $('#boardUserId');
 			var $boardContent = $('#boardContent');
+
+			// 목록
+			$('#btnList').click(function() {
+				$frm.attr('action', '/board/list');
+				$frm.submit();
+			});
 			
 			// validation
 			$('#btnUpdate').click(function() {
@@ -45,31 +79,5 @@
 		});	
 		
 		</script>
-		<h2>게시글 수정</h2>
-		<button type="button" onclick="history.go(-2)">목록</button>
-		<button type="button" id="btnUpdate">수정</button>		
-		<form id="frm" name="frm" action="/board/update" method="post">
-			<table border="1" width="600">
-			    <colgroup>
-			        <col width="25%">
-			        <col width="*">
-			    </colgroup>     
-			    <tbody>
-			        <tr>
-			            <th>제목</th>
-			            <td><input type="text" style="width: 99%" id="boardTitle" name="boardTitle" placeholder="제목을 입력해 주세요." value="${boardUpdate.boardTitle}"/></td>
-			        </tr>
-			        <tr>
-			            <th>작성자</th>
-			            <td><input type="text" style="width: 99%" id="boardUserId" name="boardUserId" placeholder="작성자를 입력해 주세요."value="${boardUpdate.boardUserId}"/></td>
-			        </tr>
-			        <tr>
-			            <th>내용</th>
-			            <td><textarea style="width: 99%" rows="10" id="boardContent" name="boardContent" placeholder="내용을 입력해 주세요.">${boardUpdate.boardContent}</textarea></td>
-			        </tr>
-			    </tbody>
-			</table>
-			<input type="hidden" name="boardNo" value="${boardUpdate.boardNo}" />
-		</form>
 	</body>
 </html>

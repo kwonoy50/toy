@@ -19,20 +19,52 @@ SELECT
 <if test='keyword != null'>
     <if test='search.equals("title")'>
     <![CDATA[
-    AND BOARD_TITLE LIKE CONCAT('%', #{keyword}, '%')  
+   AND BOARD_TITLE LIKE CONCAT('%', #{keyword}, '%')  
     ]]>
     </if>
     <if test='search.equals("userId")'>
     <![CDATA[
-    AND BOARD_USER_ID LIKE CONCAT('%', #{keyword}, '%')  
+   AND BOARD_USER_ID LIKE CONCAT('%', #{keyword}, '%')  
     ]]>
     </if>
     <if test='search.equals("content")'>
     <![CDATA[
-    AND BOARD_CONTENT LIKE CONCAT('%', #{keyword}, '%')  
+   AND BOARD_CONTENT LIKE CONCAT('%', #{keyword}, '%')  
     ]]>
     </if>
 </if>
+<![CDATA[
+ ORDER BY BOARD_NO DESC
+ LIMIT #{pageStart}, #{perPageNum}
+]]>
+</select>
+
+<select id="countBoard" parameterType="com.toy.board.vo.BoardVo" resultType="integer">
+<![CDATA[
+SELECT
+        COUNT(*)
+  FROM
+        BOARD
+ WHERE  1 = 1
+]]>
+<if test='keyword != null'>
+    <if test='search.equals("title")'>
+    <![CDATA[
+   AND BOARD_TITLE LIKE CONCAT('%', #{keyword}, '%')  
+    ]]>
+    </if>
+    <if test='search.equals("userId")'>
+    <![CDATA[
+   AND BOARD_USER_ID LIKE CONCAT('%', #{keyword}, '%')  
+    ]]>
+    </if>
+    <if test='search.equals("content")'>
+    <![CDATA[
+   AND BOARD_CONTENT LIKE CONCAT('%', #{keyword}, '%')  
+    ]]>
+    </if>
+</if>
+
 </select>
 
 

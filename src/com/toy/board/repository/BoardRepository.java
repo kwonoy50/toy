@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.toy.board.vo.BoardVo;
+import com.toy.board.vo.PageMaker;
 import com.toy.common.mapper.SqlSessionMapper;
 
 @Repository
@@ -32,7 +33,18 @@ public class BoardRepository {
 		return boardList;
 	}
 
-
+	
+	/**
+	 * 게시물갯수를 조회한다.
+	 * 
+	 * @param param 
+	 * @return 게시물갯수
+	 */
+	public int countBoard(BoardVo param) {
+		return mapper.select("board.BoardRepository.countBoard", param);
+	}
+	
+	
 	/**
 	 * 게시물상세내용을 조회한다.
 	 * 
@@ -40,9 +52,6 @@ public class BoardRepository {
 	 * @return 게시물상세
 	 */
 	public BoardVo selectBoardDetail(BoardVo param) {
-//		BoardVo vo = new BoardVo();;
-//		logger.debug("param.BOARD_NO: {}", param.get("BOARD_NO123"));
-//		logger.debug("param.BOARD_NO: {}", vo.getBoardNo123());
 
 		BoardVo boardDetail = mapper.select("board.BoardRepository.selectDetail", param);
 		return boardDetail;
@@ -57,7 +66,7 @@ public class BoardRepository {
 	 */
 	public int writeBoard(BoardVo param) {
 		logger.debug("11111111param {}", param);
-		logger.debug("param.BOARD_TITLE: {}", param.getBoardNo());
+		logger.debug("param.getBoardNo: {}", param.getBoardNo());
 		
 		int boardInsert = mapper.insert("board.BoardRepository.writeBoard", param);
 		return boardInsert;

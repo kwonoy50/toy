@@ -10,30 +10,9 @@
 	    <title>상세보기</title>
 	</head>	
 	<body>
-		<script type="text/javascript">
-		
-		$(document).ready(function() {
-			var $frm = $('#frm');
-			
-			// 삭제
-			$('#btnDelete').click(function() {
-				if(confirm("삭제하시겠습니까?")){
-					$frm.attr("action", "/board/delete");
-					$frm.submit();
-				}
-			});
-		
-			// 수정 페이지 이동
-			$('#btnUpdate').click(function() {
-				$frm.attr('action', '/board/update');
-				$frm.submit();
-			});
-		});
-		
-		</script>
 		<h2>게시글 상세</h2>
-		<button type="button" onclick="history.back()">목록</button>
-		<button type="button" id="btnDelete">삭제</button>	
+		<button type="button" id="btnList">목록</button>
+		<button type="button" id="btnDelete">삭제</button>
 		<button type="button" id="btnUpdate">수정</button>
 		<form id="frm" name="frm" action="/board/update" method="get">
 			<table border="1" width="600">
@@ -61,6 +40,35 @@
 			    </tbody>
 			</table>
 			<input type="hidden" name="boardNo" value="${detailOut.boardNo}" />
+			<input type="hidden" id="search" name="search" value="${detailOut.search}" />
+			<input type="hidden" id="keyword" name="keyword" value="${detailOut.keyword}" />
 		</form>
+		<script type="text/javascript">
+		
+		$(document).ready(function() {
+			var $frm = $('#frm');
+			
+			// 목록
+			$('#btnList').click(function() {
+				$frm.attr('action', '/board/list');
+				$frm.submit();
+			});
+			
+			// 삭제
+			$('#btnDelete').click(function() {
+				if(confirm('삭제하시겠습니까?')){
+					$frm.attr('action', '/board/delete');
+					$frm.submit();
+				}
+			});
+		
+			// 수정 페이지 이동
+			$('#btnUpdate').click(function() {
+				$frm.attr('action', '/board/update');
+				$frm.submit();
+			});
+		});
+		
+		</script>
 	</body>
 </html>
