@@ -191,7 +191,8 @@ public class BoardController {
 
 		// view 설정
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/board/list");
+		mav.addObject("boardNo", in.getBoardNo());
+		mav.setViewName("redirect:/board/detail");
 
 		return mav;
 	}
