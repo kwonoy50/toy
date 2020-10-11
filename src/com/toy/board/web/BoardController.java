@@ -39,7 +39,7 @@ public class BoardController {
 	public ModelAndView list(ListIn in) {
 		// parameter 설정
 		BoardVo paramVo = new BoardVo();
-	    paramVo.setSearch(in.getSearch());
+		paramVo.setSearch(in.getSearch());
 	    paramVo.setKeyword(in.getKeyword());
 		paramVo.setPage(in.getPage());
 
@@ -49,16 +49,16 @@ public class BoardController {
 	    logger.debug("getBoardCount : {}", pageMaker.getTotalCount());
 
 		// 서비스 호출
-		List<BoardVo> resultVo = boardService.getBoardList(paramVo);
+		List<BoardVo> boardList = boardService.getBoardList(paramVo);
 
 		ListOut out = new ListOut();
+		out.setBoardList(boardList);
 		out.setSearch(in.getSearch());
 		out.setKeyword(in.getKeyword());
 
 		// view 설정 및 오브젝트 삽입
 		ModelAndView mav = new ModelAndView("board/list");
-		mav.addObject("boardList", resultVo);
-		mav.addObject("search", out);
+		mav.addObject("out", out);
 		mav.addObject("pageMaker", pageMaker);
 		
 		return mav;
