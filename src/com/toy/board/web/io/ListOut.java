@@ -11,7 +11,12 @@ public class ListOut {
 	private String search;	
 	/** 게시판검색단어 */
 	private String keyword;
-    /** 게시물 목록 */
+	/** 게시글 더보기 */
+	private int morePage;
+	/** 게시물 총 갯수 */
+	private int totalCount;
+	
+	/** 게시물 목록 */
 	private List<BoardVo> boardList;
 	
 	
@@ -33,5 +38,17 @@ public class ListOut {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
+	public int getMorePage() {
+		return morePage;
+	}
+	public void setMorePage(int morePage) {
+		this.morePage = morePage;
+	}
+	public int getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}	
 	
 }

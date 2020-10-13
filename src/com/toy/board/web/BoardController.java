@@ -40,13 +40,15 @@ public class BoardController {
 		// parameter 설정
 		BoardVo paramVo = new BoardVo();
 		paramVo.setSearch(in.getSearch());
-	    paramVo.setKeyword(in.getKeyword());
+		paramVo.setKeyword(in.getKeyword());
 		paramVo.setPage(in.getPage());
+		paramVo.setMorePage(in.getMorePage());
 
-	    PageMaker pageMaker = new PageMaker();
-	    pageMaker.setVo(paramVo);
-	    pageMaker.setTotalCount(boardService.getBoardCount(paramVo));
-	    logger.debug("getBoardCount : {}", pageMaker.getTotalCount());
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setVo(paramVo);
+		pageMaker.setTotalCount(boardService.getBoardCount(paramVo));
+		logger.debug("getBoardCount : {}", pageMaker.getTotalCount());
+		logger.debug("getMorePage : {}", in.getMorePage());
 
 		// 서비스 호출
 		List<BoardVo> boardList = boardService.getBoardList(paramVo);
@@ -55,6 +57,8 @@ public class BoardController {
 		out.setBoardList(boardList);
 		out.setSearch(in.getSearch());
 		out.setKeyword(in.getKeyword());
+		out.setMorePage(in.getMorePage());
+		out.setTotalCount(pageMaker.getTotalCount());
 
 		// view 설정 및 오브젝트 삽입
 		ModelAndView mav = new ModelAndView("board/list");

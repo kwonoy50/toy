@@ -12,6 +12,8 @@ public class ListIn {
 	private int page;
 	/** 게시글 갯수 */
 	private int perPageNum;
+	/** 게시글 더보기 */
+	private int morePage;
 
 	public ListIn() {
 		// 기본값 설정
@@ -64,5 +66,13 @@ public class ListIn {
 
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	public int getMorePage() {
+		return morePage;
+	}
+
+	public void setMorePage(int morePage) {
+		this.morePage = morePage;
 	}
 }

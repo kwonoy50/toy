@@ -35,8 +35,17 @@ SELECT
 </if>
 <![CDATA[
  ORDER BY BOARD_NO DESC
+]]>
+<if test='morePage != 0'> 
+<![CDATA[
+ LIMIT 0, 5+#{morePage}
+]]>
+</if>
+<if test='morePage == 0'>
+<![CDATA[ 
  LIMIT #{pageStart}, #{perPageNum}
 ]]>
+</if>
 </select>
 
 <select id="countBoard" parameterType="com.toy.board.vo.BoardVo" resultType="integer">

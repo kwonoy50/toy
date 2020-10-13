@@ -77,11 +77,27 @@
 			    </td>
 			</tr>
 		</table>
+		<form id="frmMore" name="frmMore" action="/board/list" method="get">
+			<input type="hidden" id="morePage" name="morePage" value="${out.morePage}">
+		</form>
+		<input type="hidden" id="totalCount" name="totalCount" value="${out.totalCount}">
+		<table border="1" width="600">
+			<tr>
+				<td align="center">
+					<a id="more" onclick="goMore('${out.morePage+5}')">더보기</a>
+			    </td>
+			</tr>
+		</table>
 		<script type="text/javascript">
 		
 		$(document).ready(function() {
 			var $frm = $('#frm');
 			var $frmSearch = $('#frmSearch');
+			
+			// 더보기시 스크롤 맨밑으로 이동
+			if ($('#morePage').val() != null) {
+				$('html, body').scrollTop(document.body.scrollHeight);
+			}
 			
 			// 글쓰기 페이지 이동
 			$('#btnWrite').click(function() {
@@ -125,6 +141,16 @@
 		function goNext(page) {
 			$('#page').val(page);
 			$('#frmPage').submit();
+		}
+		
+		// 더보기
+		function goMore(morePage) {
+			if ($('#totalCount').val()-5 <= $('#morePage').val()) {
+				alert("마지막행입니다.");
+				return;
+			}
+			$('#morePage').val(morePage);
+			$('#frmMore').submit();
 		}
 		
 		</script>

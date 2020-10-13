@@ -24,6 +24,8 @@ public class BoardVo {
 	private int page;
 	/** 게시글 갯수 */
 	private int perPageNum;
+	/** 게시글 더보기 */
+	private int morePage;
 
 	public BoardVo() {
 		// 기본값 설정
@@ -102,6 +104,14 @@ public class BoardVo {
 	}
 	public void setBoardRegdate(Date boardRegdate) {
 		this.boardRegdate = boardRegdate;
+	}
+
+	public int getMorePage() {
+		return morePage;
+	}
+
+	public void setMorePage(int morePage) {
+		this.morePage = morePage;
 	}
 	
 }
