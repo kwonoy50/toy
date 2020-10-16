@@ -20,48 +20,13 @@ public class BoardVo {
 	/** 게시판검색단어 */
 	private String keyword;
 
-	/** 현재페이지 */
-	private int page;
+	/** 시작페이지 */
+	private int pageStart;
 	/** 게시글 갯수 */
 	private int perPageNum;
 	/** 게시글 더보기 */
 	private int morePage;
 
-	public BoardVo() {
-		// 기본값 설정
-		this.page = 1;
-		this.perPageNum = 5;
-	}
-
-	public int getPage() {
-		return page;
-	}
-
-	public void setPage(int page) {
-		// 음수가 들어가지 않게 설정
-		if (page <= 0) {
-			this.page = 1;
-		} else {
-			this.page = page;
-		}
-	}
-	
-	public int getPageStart() {
-		return (this.page-1)*perPageNum;
-	}
-	
-	public int getPerPageNum() {
-		return perPageNum;
-	}
-
-	public void setPerPageNum(int pageCount) {
-		int cnt = this.perPageNum;
-		if (pageCount != cnt) {
-			this.perPageNum = cnt;
-		} else {
-			this.perPageNum = pageCount;
-		}
-	}
 	
 	public String getSearch() {
 		return search;
@@ -105,13 +70,23 @@ public class BoardVo {
 	public void setBoardRegdate(Date boardRegdate) {
 		this.boardRegdate = boardRegdate;
 	}
-
 	public int getMorePage() {
 		return morePage;
 	}
-
 	public void setMorePage(int morePage) {
 		this.morePage = morePage;
+	}
+	public int getPerPageNum() {
+		return perPageNum;
+	}
+	public void setPerPageNum(int perPageNum) {
+		this.perPageNum = perPageNum;
+	}
+	public int getPageStart() {
+		return pageStart;
+	}
+	public void setPageStart(int pageStart) {
+		this.pageStart = pageStart;
 	}
 	
 }

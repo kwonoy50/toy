@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.toy.board.service.BoardService;
+import com.toy.board.util.Criteria;
+import com.toy.board.util.Pagination;
 import com.toy.board.vo.BoardVo;
-import com.toy.board.vo.PageMaker;
 import com.toy.board.web.io.DeleteIn;
 import com.toy.board.web.io.DetailIn;
 import com.toy.board.web.io.DetailOut;
@@ -38,16 +39,24 @@ public class BoardController {
 	@RequestMapping("/board/list")
 	public ModelAndView list(ListIn in) {
 		// parameter 설정
+		Criteria cri = new Criteria();
+		cri.setPage(in.getPage());
+		
 		BoardVo paramVo = new BoardVo();
 		paramVo.setSearch(in.getSearch());
 		paramVo.setKeyword(in.getKeyword());
-		paramVo.setPage(in.getPage());
+		paramVo.setPageStart(cri.getPageStart());
+		paramVo.setPerPageNum(cri.getPerPageNum());
 		paramVo.setMorePage(in.getMorePage());
 
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setVo(paramVo);
-		pageMaker.setTotalCount(boardService.getBoardCount(paramVo));
-		logger.debug("getBoardCount : {}", pageMaker.getTotalCount());
+		logger.debug("getPage : {}", cri.getPage());
+		logger.debug("getPageStart : {}", cri.getPageStart());
+		logger.debug("getPerPageNum : {}", cri.getPerPageNum());
+		
+		Pagination pagination = new Pagination();
+		pagination.setCri(cri);
+		pagination.setTotalCount(boardService.getBoardCount(paramVo));
+		logger.debug("getBoardCount : {}", pagination.getTotalCount());
 		logger.debug("getMorePage : {}", in.getMorePage());
 
 		// 서비스 호출
@@ -58,12 +67,12 @@ public class BoardController {
 		out.setSearch(in.getSearch());
 		out.setKeyword(in.getKeyword());
 		out.setMorePage(in.getMorePage());
-		out.setTotalCount(pageMaker.getTotalCount());
+		out.setTotalCount(pagination.getTotalCount());
 
 		// view 설정 및 오브젝트 삽입
 		ModelAndView mav = new ModelAndView("board/list");
 		mav.addObject("out", out);
-		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("pagination", pagination);
 		
 		return mav;
 	}

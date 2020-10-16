@@ -7,8 +7,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
-	    <meta charset="UTF-8">
-	    <title>목록</title>
+		<meta charset="UTF-8">
+		<title>목록</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<style type="text/css">
 			a:hover   { cursor:pointer; text-decoration:underline; color:#FF0000 }
@@ -27,12 +27,17 @@
 		</form>
 		<form id="frmSearch" name="frmSearch" action="/board/list" method="get">
 			<select name="search">
-				<option value="title" <c:if test="${out.search == 'title'}">selected="selected"</c:if>>제목</option>
-				<option value="userId" <c:if test="${out.search == 'userId'}">selected="selected"</c:if>>작성자</option>
-				<option value="content" <c:if test="${out.search == 'content'}">selected="selected"</c:if>>내용</option>
+				<option value="title">제목</option>
+				<option value="userId">작성자</option>
+				<option value="content">내용</option>
 			</select>
 			<input type="text" name="keyword" id="keyword" value="${out.keyword}"/>
 			<button type="button" id="btnSearch">조회</button>
+			<select name="listCount">
+				<option value="10">10개</option>
+				<option value="20">20개</option>
+				<option value="30">30개</option>
+			</select>
 		</form>
 		<table border="1" width="600">
 			<thead>
@@ -65,16 +70,19 @@
 		<table border="1" width="600">
 			<tr>
 				<td align="center">
-			    <c:if test="${pageMaker.prev}">
-			    	<a onclick="goPrev('${pageMaker.startPage-1}')">&nbsp;<&nbsp;</a>
-			    </c:if>
-			    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
-			    	&nbsp;<a onclick="goPaging('${pageNum}')">${pageNum}</a>&nbsp;
-			    </c:forEach>
-			    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-			    	<a onclick="goNext('${pageMaker.endPage+1}')">&nbsp;>&nbsp;</a>
-			    </c:if>
-			    </td>
+				<c:if test="${pagination.prev}">
+					<!-- 시작 페이지 - 1 이유는 이전 버튼 눌렀을때 지금 시작페이지의 이전 페이징번호의 마지막으로 이동 -->
+					<a href="javascript:goPrev('${pagination.startPage - 1}');">&nbsp;&lt;&nbsp;</a>
+				</c:if>
+				<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="pageNum">
+					&nbsp;<a href="javascript:goPaging('${pageNum}');">${pageNum}</a>&nbsp;
+				</c:forEach>
+				<!-- 이부분 이해가 잘안됨. -->
+				<c:if test="${pagination.next && pagination.endPage > 0 }">
+					<!-- 마지막 페이지 - 1 이유는 다음 버튼 눌렀을때 지금 마지막페이지의 다음 시작 페이징번호로 이동 -->
+					<a href="javascript:goNext('${pagination.endPage + 1}');">&nbsp;&gt;&nbsp;</a>
+				</c:if>
+				</td>
 			</tr>
 		</table>
 		<form id="frmMore" name="frmMore" action="/board/list" method="get">
@@ -84,8 +92,9 @@
 		<table border="1" width="600">
 			<tr>
 				<td align="center">
-					<a id="more" onclick="goMore('${out.morePage+5}')">더보기</a>
-			    </td>
+					<a href="javascript:goMore('${out.morePage + 5}');" id="more" >더보기</a>
+<%-- 					<a href="#" id="more" onclick="goMore('${out.morePage+5}')">더보기</a> --%>
+				</td>
 			</tr>
 		</table>
 		<script type="text/javascript">
@@ -117,6 +126,13 @@
 					$('#btnSearch').click();
 				}
 			});
+			
+			var searchSelectedValue = "title";
+			<c:if test="${not empty out.search}">
+				searchSelectedValue = "${out.search}";
+			</c:if>
+			$('#frmSearch').find('select[name=search]').val(searchSelectedValue);
+			
 		});	
 		
 		// 상세페이지 이동
@@ -145,7 +161,7 @@
 		
 		// 더보기
 		function goMore(morePage) {
-			if ($('#totalCount').val()-5 <= $('#morePage').val()) {
+			if ($('#totalCount').val() - 5 <= $('#morePage').val()) {
 				alert("마지막행입니다.");
 				return;
 			}

@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.toy.board.util.Pagination;
 import com.toy.board.vo.BoardVo;
-import com.toy.board.vo.PageMaker;
 import com.toy.common.mapper.SqlSessionMapper;
 
 @Repository

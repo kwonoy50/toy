@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.toy.board.repository.BoardRepository;
+import com.toy.board.util.Pagination;
 import com.toy.board.vo.BoardVo;
-import com.toy.board.vo.PageMaker;
 
 @Service
 public class BoardService {

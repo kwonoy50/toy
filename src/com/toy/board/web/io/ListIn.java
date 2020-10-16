@@ -14,43 +14,6 @@ public class ListIn {
 	private int perPageNum;
 	/** 게시글 더보기 */
 	private int morePage;
-
-	public ListIn() {
-		// 기본값 설정
-		this.page = 1;
-		this.perPageNum = 5;
-	}
-
-	public int getPage() {
-		return page;
-	}
-
-	public void setPage(int page) {
-		// 음수가 들어가지 않게 설정
-		if (page <= 0) {
-			this.page = 1;
-		} else {
-			this.page = page;
-		}
-	}
-	
-	public int getPageStart() {
-		return (this.page-1)*perPageNum;
-	}
-	
-	public int getPerPageNum() {
-		return perPageNum;
-	}
-
-	public void setPerPageNum(int pageCount) {
-		int cnt = this.perPageNum;
-		if (pageCount != cnt) {
-			this.perPageNum = cnt;
-		} else {
-			this.perPageNum = pageCount;
-		}
-	}
-	
 	
 	public String getSearch() {
 		return search;
@@ -74,5 +37,21 @@ public class ListIn {
 
 	public void setMorePage(int morePage) {
 		this.morePage = morePage;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getPerPageNum() {
+		return perPageNum;
+	}
+
+	public void setPerPageNum(int perPageNum) {
+		this.perPageNum = perPageNum;
 	}
 }
