@@ -23,7 +23,8 @@
 		<form id="frm" name="frm" action="/board/detail" method="get">
 			<input type="hidden" id="boardNo" name="boardNo" value="" />
 			<input type="hidden" id="search" name="search" value="${out.search}" />
-			<input type="hidden" id="keyword" name="keyword" value="${out.keyword}" />
+			<input type="hidden" id="keyword1" name="keyword" value="${out.keyword}" />
+			<input type="hidden" id="listCount" name="listCount" value="${out.listCount}" />
 		</form>
 		<form id="frmSearch" name="frmSearch" action="/board/list" method="get">
 			<select name="search">
@@ -34,9 +35,9 @@
 			<input type="text" name="keyword" id="keyword" value="${out.keyword}"/>
 			<button type="button" id="btnSearch">조회</button>
 			<select name="listCount">
+				<option value="5">5개</option>
 				<option value="10">10개</option>
 				<option value="20">20개</option>
-				<option value="30">30개</option>
 			</select>
 		</form>
 		<table border="1" width="600">
@@ -66,6 +67,7 @@
 			<input type="hidden" id="page" name="page" value="">
 			<input type="hidden" id="search" name="search" value="${out.search}" />
 			<input type="hidden" id="keyword" name="keyword" value="${out.keyword}" />
+			<input type="hidden" id="listCount" name="listCount" value="${out.listCount}" />
 		</form>
 		<table border="1" width="600">
 			<tr>
@@ -92,8 +94,7 @@
 		<table border="1" width="600">
 			<tr>
 				<td align="center">
-					<a href="javascript:goMore('${out.morePage + 5}');" id="more" >더보기</a>
-<%-- 					<a href="#" id="more" onclick="goMore('${out.morePage+5}')">더보기</a> --%>
+					<a href="javascript:goMore('${out.morePage}');" id="more" >더보기</a>
 				</td>
 			</tr>
 		</table>
@@ -133,6 +134,11 @@
 			</c:if>
 			$('#frmSearch').find('select[name=search]').val(searchSelectedValue);
 			
+			var listCountValue = 5;
+			<c:if test="${out.listCount != 0}">
+				listCountValue = ${out.listCount};
+			</c:if>
+			$('#frmSearch').find('select[name=listCount]').val(listCountValue);
 		});	
 		
 		// 상세페이지 이동
@@ -161,7 +167,7 @@
 		
 		// 더보기
 		function goMore(morePage) {
-			if ($('#totalCount').val() - 5 <= $('#morePage').val()) {
+			if ($('#totalCount').val() <= $('#morePage').val()) {
 				alert("마지막행입니다.");
 				return;
 			}

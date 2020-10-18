@@ -14,6 +14,8 @@ public class ListIn {
 	private int perPageNum;
 	/** 게시글 더보기 */
 	private int morePage;
+	/** 게시글 보기 갯수 */
+	private int listCount;
 	
 	public String getSearch() {
 		return search;
@@ -53,5 +55,13 @@ public class ListIn {
 
 	public void setPerPageNum(int perPageNum) {
 		this.perPageNum = perPageNum;
+	}
+
+	public int getListCount() {
+		return listCount;
+	}
+
+	public void setListCount(int listCount) {
+		this.listCount = listCount;
 	}
 }

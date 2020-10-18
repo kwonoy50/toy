@@ -36,10 +36,7 @@ public class Criteria {
 
 	// pageCount 설정하는 부분이 이해가 안됨.
 	public void setPerPageNum(int pageCount) {
-		int cnt = this.perPageNum;
-		if (pageCount != cnt) {
-			this.perPageNum = cnt;
-		} else {
+		if (pageCount != this.perPageNum) {
 			this.perPageNum = pageCount;
 		}
 	}

@@ -19,17 +19,17 @@ SELECT
 <if test="keyword != null">
     <if test="search.equals('title')">
     <![CDATA[
-   AND BOARD_TITLE LIKE CONCAT("%", #{keyword}, "%")  
+   AND BOARD_TITLE LIKE CONCAT('%', #{keyword}, '%')  
     ]]>
     </if>
     <if test="search.equals('userId')">
     <![CDATA[
-   AND BOARD_USER_ID LIKE CONCAT("%", #{keyword}, "%")  
+   AND BOARD_USER_ID LIKE CONCAT('%', #{keyword}, '%')  
     ]]>
     </if>
     <if test="search.equals('content')">
     <![CDATA[
-   AND BOARD_CONTENT LIKE CONCAT("%", #{keyword}, "%")  
+   AND BOARD_CONTENT LIKE CONCAT('%', #{keyword}, '%')  
     ]]>
     </if>
 </if>
@@ -38,7 +38,7 @@ SELECT
 ]]>
 <if test="morePage != 0"> 
 <![CDATA[
- LIMIT 0, 5+#{morePage}
+ LIMIT 0, #{morePage}
 ]]>
 </if>
 <if test="morePage == 0">
@@ -59,17 +59,17 @@ SELECT
 <if test="keyword != null">
     <if test="search.equals('title')">
     <![CDATA[
-   AND BOARD_TITLE LIKE CONCAT("%", #{keyword}, "%")  
+   AND BOARD_TITLE LIKE CONCAT('%', #{keyword}, '%')  
     ]]>
     </if>
     <if test="search.equals('userId')">
     <![CDATA[
-   AND BOARD_USER_ID LIKE CONCAT("%", #{keyword}, "%")  
+   AND BOARD_USER_ID LIKE CONCAT('%', #{keyword}, '%')  
     ]]>
     </if>
     <if test="search.equals('content')">
     <![CDATA[
-   AND BOARD_CONTENT LIKE CONCAT("%", #{keyword}, "%")  
+   AND BOARD_CONTENT LIKE CONCAT('%', #{keyword}, '%')  
     ]]>
     </if>
 </if>

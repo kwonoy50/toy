@@ -41,13 +41,23 @@ public class BoardController {
 		// parameter 설정
 		Criteria cri = new Criteria();
 		cri.setPage(in.getPage());
+		if (in.getListCount() != 0) {
+			cri.setPerPageNum(in.getListCount());
+		}
+
+		logger.debug("getListCount : {}", in.getListCount());
+		logger.debug("setPerPageNum : {}", cri.getPerPageNum());
 		
 		BoardVo paramVo = new BoardVo();
 		paramVo.setSearch(in.getSearch());
 		paramVo.setKeyword(in.getKeyword());
 		paramVo.setPageStart(cri.getPageStart());
 		paramVo.setPerPageNum(cri.getPerPageNum());
-		paramVo.setMorePage(in.getMorePage());
+		if (in.getMorePage() == 0) {
+			paramVo.setMorePage(5);
+		} else {
+			paramVo.setMorePage(in.getMorePage() + 5);
+		}
 
 		logger.debug("getPage : {}", cri.getPage());
 		logger.debug("getPageStart : {}", cri.getPageStart());
@@ -57,7 +67,7 @@ public class BoardController {
 		pagination.setCri(cri);
 		pagination.setTotalCount(boardService.getBoardCount(paramVo));
 		logger.debug("getBoardCount : {}", pagination.getTotalCount());
-		logger.debug("getMorePage : {}", in.getMorePage());
+		logger.debug("getMorePage : {}", paramVo.getMorePage());
 
 		// 서비스 호출
 		List<BoardVo> boardList = boardService.getBoardList(paramVo);
@@ -66,8 +76,9 @@ public class BoardController {
 		out.setBoardList(boardList);
 		out.setSearch(in.getSearch());
 		out.setKeyword(in.getKeyword());
-		out.setMorePage(in.getMorePage());
+		out.setMorePage(paramVo.getMorePage());
 		out.setTotalCount(pagination.getTotalCount());
+		out.setListCount(cri.getPerPageNum());
 
 		// view 설정 및 오브젝트 삽입
 		ModelAndView mav = new ModelAndView("board/list");

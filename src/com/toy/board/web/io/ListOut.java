@@ -15,6 +15,8 @@ public class ListOut {
 	private int morePage;
 	/** 게시물 총 갯수 */
 	private int totalCount;
+	/** 게시글 보기 갯수 */
+	private int listCount;
 	
 	/** 게시물 목록 */
 	private List<BoardVo> boardList;
@@ -49,6 +51,12 @@ public class ListOut {
 	}
 	public void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
+	}
+	public int getListCount() {
+		return listCount;
+	}
+	public void setListCount(int listCount) {
+		this.listCount = listCount;
 	}	
 	
 }

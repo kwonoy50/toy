@@ -27,14 +27,14 @@ public class Pagination {
 	}
 	public void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
-		// 호출함수가 왜 여기에 들어와야되는지 이해가 잘안됨.
+		// 
 		calcData();
 	}
 	
 	private void calcData() {
 		// math.ceil 소수값이 있을때 올리는 함수
 		// (현재 페이지 번호 / 화면에 보여질 페이지번호 갯수) * 화면에 보여질 페이지 번호 갯수
-		// 시작번호 구하는 공식인지는 알겠는데 왜 이식으로 계산하는지는 이해가 잘안됨.
+		// 네비게이션
 		endPage = (int)(Math.ceil(cri.getPage() / (double)displayPageNum) * displayPageNum);
 		
 		// 끝페이지 번호 - 화면에 보여질 페이지번호 갯수 + 1
@@ -53,8 +53,11 @@ public class Pagination {
 		
 		// 이전 버튼 생성 여부 = 시작 페이지 번호 == 1 ? false : true
 		prev = startPage == 1 ? false : true;
+		//prev = startPage != 1;
+		
 		// 다음 버튼 생성 여부 = 끝 페이지 번호 * 한 페이지당 보여줄 게시글의 갯수 < 총 게시글의 수 ? true: false
-		next = endPage * cri.getPerPageNum() < totalCount ? true : false;
+		next = ((endPage * cri.getPerPageNum()) < totalCount) ? true : false;
+		//next = endPage * cri.getPerPageNum() < totalCount;
 	}
 	
 	
