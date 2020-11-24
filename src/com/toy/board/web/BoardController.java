@@ -53,11 +53,13 @@ public class BoardController {
 		paramVo.setKeyword(in.getKeyword());
 		paramVo.setPageStart(cri.getPageStart());
 		paramVo.setPerPageNum(cri.getPerPageNum());
-		if (in.getMorePage() == 0) {
-			paramVo.setMorePage(5);
-		} else {
-			paramVo.setMorePage(in.getMorePage() + 5);
-		}
+		paramVo.setMorePage(in.getMorePage());
+
+//		if (in.getMorePage() == 0) {
+//			paramVo.setMorePage(5);
+//		} else {
+//			paramVo.setMorePage(in.getMorePage() + 5);
+//		}
 
 		logger.debug("getPage : {}", cri.getPage());
 		logger.debug("getPageStart : {}", cri.getPageStart());
@@ -71,12 +73,14 @@ public class BoardController {
 
 		// 서비스 호출
 		List<BoardVo> boardList = boardService.getBoardList(paramVo);
-
+		
+		int morePage = in.getMorePage() + cri.getPerPageNum();
+		
 		ListOut out = new ListOut();
 		out.setBoardList(boardList);
 		out.setSearch(in.getSearch());
 		out.setKeyword(in.getKeyword());
-		out.setMorePage(paramVo.getMorePage());
+		out.setMorePage(morePage);
 		out.setTotalCount(pagination.getTotalCount());
 		out.setListCount(cri.getPerPageNum());
 

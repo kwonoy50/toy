@@ -39,6 +39,8 @@
 				<option value="10">10개</option>
 				<option value="20">20개</option>
 			</select>
+			<input type="hidden" id="page" name="page" value="0">
+			<input type="hidden" id="morePage" name="morePage" value="${out.morePage}">
 		</form>
 		<table border="1" width="600">
 			<thead>
@@ -63,18 +65,12 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<form id="frmPage" name="frmPage" action="/board/list" method="get">
-			<input type="hidden" id="page" name="page" value="">
-			<input type="hidden" id="search" name="search" value="${out.search}" />
-			<input type="hidden" id="keyword" name="keyword" value="${out.keyword}" />
-			<input type="hidden" id="listCount" name="listCount" value="${out.listCount}" />
-		</form>
 		<table border="1" width="600">
 			<tr>
 				<td align="center">
 				<c:if test="${pagination.prev}">
 					<!-- 시작 페이지 - 1 이유는 이전 버튼 눌렀을때 지금 시작페이지의 이전 페이징번호의 마지막으로 이동 -->
-					<a href="javascript:goPrev('${pagination.startPage - 1}');">&nbsp;&lt;&nbsp;</a>
+					<a href="javascript:goPaging('${pagination.startPage - 1}');">&nbsp;&lt;&nbsp;</a>
 				</c:if>
 				<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="pageNum">
 					&nbsp;<a href="javascript:goPaging('${pageNum}');">${pageNum}</a>&nbsp;
@@ -82,14 +78,11 @@
 				<!-- 이부분 이해가 잘안됨. -->
 				<c:if test="${pagination.next && pagination.endPage > 0 }">
 					<!-- 마지막 페이지 - 1 이유는 다음 버튼 눌렀을때 지금 마지막페이지의 다음 시작 페이징번호로 이동 -->
-					<a href="javascript:goNext('${pagination.endPage + 1}');">&nbsp;&gt;&nbsp;</a>
+					<a href="javascript:goPaging('${pagination.endPage + 1}');">&nbsp;&gt;&nbsp;</a>
 				</c:if>
 				</td>
 			</tr>
 		</table>
-		<form id="frmMore" name="frmMore" action="/board/list" method="get">
-			<input type="hidden" id="morePage" name="morePage" value="${out.morePage}">
-		</form>
 		<input type="hidden" id="totalCount" name="totalCount" value="${out.totalCount}">
 		<table border="1" width="600">
 			<tr>
@@ -117,6 +110,9 @@
 			
 			// 검색
 			$('#btnSearch').click(function() {
+				$('#morePage').val(0);
+				//document.getElementById('morePage').value = 0;
+				//document.frmSearch.morePage.value = 0;
 				$frmSearch.attr('action', '/board/list');
 				$frmSearch.submit();
 			});
@@ -149,20 +145,21 @@
 		
 		// 페이징 이동
 		function goPaging(page) {
+			$('#morePage').val(0);
 			$('#page').val(page);
-			$('#frmPage').submit();
+			$('#frmSearch').submit();
 		}
 		
 		// 이전으로 이동
 		function goPrev(page) {
 			$('#page').val(page);
-			$('#frmPage').submit();
+			$('#frmSearch').submit();
 		}
 		
 		// 다음으로 이동
 		function goNext(page) {
 			$('#page').val(page);
-			$('#frmPage').submit();
+			$('#frmSearch').submit();
 		}
 		
 		// 더보기
@@ -172,7 +169,7 @@
 				return;
 			}
 			$('#morePage').val(morePage);
-			$('#frmMore').submit();
+			$('#frmSearch').submit();
 		}
 		
 		</script>

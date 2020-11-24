@@ -38,11 +38,11 @@ SELECT
 ]]>
 <if test="morePage != 0"> 
 <![CDATA[
- LIMIT 0, #{morePage}
+ LIMIT 0, #{perPageNum} + #{morePage}
 ]]>
 </if>
 <if test="morePage == 0">
-<![CDATA[ 
+<![CDATA[
  LIMIT #{pageStart}, #{perPageNum}
 ]]>
 </if>

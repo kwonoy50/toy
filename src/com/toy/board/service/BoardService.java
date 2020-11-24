@@ -29,7 +29,10 @@ public class BoardService {
 	 * @return 게시물목록
 	 */
 	public List<BoardVo> getBoardList(BoardVo param){
-		return boardRepository.selectBoardList(param);
+		
+		List<BoardVo> aa = boardRepository.selectBoardList(param);
+	
+		return aa;
 	}
 
 	
